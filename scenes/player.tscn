@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_bt2jc"]
 [ext_resource type="Texture2D" uid="uid://cmct8hdfcvxvg" path="res://assets/player/knight.png" id="1_ha5d7"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2yotx"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e2lnu"]
 radius = 5.0
 height = 18.0
 
@@ -13,13 +13,14 @@ height = 18.0
 script = ExtResource("1_bt2jc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 2)
 texture = ExtResource("1_ha5d7")
 hframes = 8
 vframes = 8
 
-[node name="TempCollision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
-shape = SubResource("CapsuleShape2D_2yotx")
+[node name="PhysicsHitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("CapsuleShape2D_e2lnu")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 root_node = NodePath(".")
