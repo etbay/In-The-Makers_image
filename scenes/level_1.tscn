@@ -24,6 +24,8 @@ position = Vector2(-22, 55)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(-3, -28)
+collision_layer = 3
+collision_mask = 3
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -32,6 +34,8 @@ shape = SubResource("WorldBoundaryShape2D_q6rhk")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 position = Vector2(-3, -120)
+collision_layer = 3
+collision_mask = 3
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]

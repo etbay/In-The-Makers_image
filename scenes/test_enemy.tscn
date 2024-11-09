@@ -1,19 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://x3oj5neqd3n3"]
+[gd_scene load_steps=10 format=3 uid="uid://x3oj5neqd3n3"]
 
 [ext_resource type="Script" path="res://scripts/test_enemy.gd" id="1_lo1vv"]
 [ext_resource type="Texture2D" uid="uid://cmct8hdfcvxvg" path="res://assets/player/knight.png" id="1_unhum"]
 [ext_resource type="PackedScene" uid="uid://p7rtwtkyoxl6" path="res://components/hitbox.tscn" id="2_3x7i2"]
 [ext_resource type="PackedScene" uid="uid://dwp5lfo58lxea" path="res://scenes/bullet.tscn" id="2_esxvj"]
+[ext_resource type="PackedScene" uid="uid://daytajnd160e8" path="res://components/health_component.tscn" id="5_c4bra"]
+[ext_resource type="PackedScene" uid="uid://dcd72ihkctsg4" path="res://components/hurtbox.tscn" id="6_i0c0g"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lrisg"]
 radius = 9.0
 height = 22.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a7p12"]
-radius = 3.0
-height = 12.0
+radius = 5.0
+height = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_myaba"]
 
 [node name="TestEnemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_lo1vv")
 ammo = ExtResource("2_esxvj")
 
@@ -25,6 +31,8 @@ hframes = 8
 vframes = 9
 
 [node name="Hitbox" parent="." instance=ExtResource("2_3x7i2")]
+collision_layer = 16
+collision_mask = 8
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2(0, -5)
@@ -39,6 +47,20 @@ shape = SubResource("CapsuleShape2D_a7p12")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
 
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_c4bra")]
+player = NodePath("..")
+MAX_HEALTH = 4.0
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_i0c0g")]
+collision_layer = 32
+collision_mask = 4
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CircleShape2D_myaba")
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
 
 [editable path="Hitbox"]
+[editable path="Hurtbox"]
