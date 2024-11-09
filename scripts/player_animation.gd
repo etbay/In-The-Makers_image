@@ -15,5 +15,7 @@ func _process(delta: float) -> void:
 	animation_tree.set("parameters/Jump/Jumping/blend_position", last_facing_direction.x)
 	animation_tree.set("parameters/Jump/Falling/blend_position", last_facing_direction.x)
 	animation_tree.set("parameters/Jump/EndJump/blend_position", last_facing_direction.x)
+	if player.attack_state != player.Attacks.IDLE:
+		animation_tree.set("parameters/BasicAttack/BasicAttackBlend/blend_position", last_facing_direction.x)
 	if player.dash_timeout.is_stopped():
 		animation_tree.set("parameters/Dash/DashBlend/blend_position", last_facing_direction.x)

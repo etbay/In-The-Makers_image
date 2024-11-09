@@ -49,7 +49,7 @@ enum Attacks
 	IDLE,
 	UPPER,
 	AIR,
-	REGULAR
+	BASIC
 }
 
 func _physics_process(delta: float) -> void:
@@ -58,7 +58,7 @@ func _physics_process(delta: float) -> void:
 	#print("dashing: " + str(dashing))
 	#print("jumping: " + str(jumping))
 	
-	print(velocity)
+	print(attack_state)
 	
 	# Performs state actions based on active state; state is changed in state functions
 	match state:
@@ -159,7 +159,7 @@ func detect_attack_type():
 	if direction.y != 0.0:
 		attack_state = Attacks.UPPER
 	elif state == State.WALK or state == State.IDLE:
-		attack_state = Attacks.REGULAR
+		attack_state = Attacks.BASIC
 	elif state == State.JUMP:
 		attack_state = Attacks.AIR
 
