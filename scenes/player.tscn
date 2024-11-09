@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://docergpbnrtt7"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_bt2jc"]
+[ext_resource type="Texture2D" uid="uid://cmct8hdfcvxvg" path="res://assets/player/knight.png" id="1_ha5d7"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2yotx"]
+radius = 5.0
+height = 18.0
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_wu7b4"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_bt2jc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ha5d7")
+hframes = 8
+vframes = 8
+
+[node name="TempCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_2yotx")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath(".")
+tree_root = SubResource("AnimationNodeStateMachine_wu7b4")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimationTree")
