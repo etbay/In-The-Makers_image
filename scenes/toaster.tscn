@@ -59,6 +59,10 @@ health_component = NodePath("../HealthComponent")
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("CircleShape2D_myaba")
 
+[node name="DamagedLength" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
 

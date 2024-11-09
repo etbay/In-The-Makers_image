@@ -5,11 +5,15 @@ var speed := 300.0
 var velocity = Vector2.ZERO
 var gravity = 200
 
+var rand = RandomNumberGenerator.new()
+
 func _ready():
 	var player = get_parent().find_child("Player")
 	var start_pos = global_position
 	var target_pos = player.global_position
-	var time_to_target = 2.0
+	var time_to_target = 1.2
+	
+	target_pos.x += rand.randi_range(-30, 30)
 	
 	velocity = calculate_initial_velocity(start_pos, target_pos, gravity, time_to_target)
 
@@ -27,4 +31,7 @@ func calculate_initial_velocity(start_pos, target_pos, gravity, time) -> Vector2
 	return Vector2(v_x0, v_y0)
 
 func _screen_exited() -> void:
+	queue_free()
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
 	queue_free()

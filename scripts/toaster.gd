@@ -4,10 +4,13 @@ extends CharacterBody2D
 @onready var timer: Timer = $Timer
 @export var ammo : PackedScene
 @onready var health_component: HealthComponent = $HealthComponent
+@onready var damaged_length: Timer = $DamagedLength
 
-@export var speed = 20
+@export var speed = 40
 @export var acceleration = 20
 var friction = 20
+@export var knockback = 40
+var being_attacked = false
 
 var player : CharacterBody2D
 
@@ -19,7 +22,7 @@ func _physics_process(delta: float) -> void:
 	check_player_collision()
 	#print(health_component.health)
 	velocity += get_gravity() * 0.6 * delta
-	if is_on_floor():
+	if damaged_length.is_stopped():
 		velocity.x = move_toward(0, ray_cast.target_position.normalized().x * speed, acceleration)
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction)
@@ -37,13 +40,26 @@ func check_player_collision():
 
 func shoot():
 	if is_on_floor():
-		var bullet = ammo.instantiate()
-		bullet.position = position
-		bullet.direction.x = (ray_cast.target_position).normalized().x
-		get_tree().current_scene.add_child(bullet)
+		var bullet1 = ammo.instantiate()
+		var bullet2 = ammo.instantiate()
+		var bullet3 = ammo.instantiate()
+		bullet1.position = position
+		bullet1.direction.x = (ray_cast.target_position).normalized().x
+		bullet2.position = position
+		bullet2.direction.x = (ray_cast.target_position).normalized().x
+		bullet3.position = position
+		bullet3.direction.x = (ray_cast.target_position).normalized().x
+		get_tree().current_scene.add_child(bullet1)
+		get_tree().current_scene.add_child(bullet2)
+		get_tree().current_scene.add_child(bullet3)
 
 func _on_timer_timeout() -> void:
 	shoot()
 
 func _on_health_component_damaged() -> void:
-	velocity.y = -300
+	damaged_length.start()
+	if not player.dash_timeout.is_stopped():
+		velocity.y = -300
+		velocity.x = player.direction.x * knockback
+	else:
+		velocity.x = player.direction.x * knockback
