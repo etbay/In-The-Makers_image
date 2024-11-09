@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4o2c3alm8aee"]
+[gd_scene load_steps=10 format=3 uid="uid://c4o2c3alm8aee"]
 
+[ext_resource type="PackedScene" uid="uid://x3oj5neqd3n3" path="res://scenes/toaster.tscn" id="1_4ab5d"]
 [ext_resource type="PackedScene" uid="uid://docergpbnrtt7" path="res://scenes/player.tscn" id="1_fk7hs"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_jntnx"]
 [ext_resource type="PackedScene" uid="uid://c63ujwnqgimxp" path="res://scenes/health_pickup.tscn" id="1_mofkx"]
-[ext_resource type="Texture2D" uid="uid://dhj5ab7tueofo" path="res://assets/player/dashattack.png" id="4_uc6m3"]
+[ext_resource type="Texture2D" uid="uid://c8v4q27f1utix" path="res://assets/desolate_world_background.png" id="2_uq7g2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tqfl7"]
 bg_color = Color(0.999984, 0.803284, 0.770477, 1)
@@ -20,13 +21,27 @@ distance = -72.0
 
 [node name="Level 1" type="Node2D" node_paths=PackedStringArray("health_bar", "health_component")]
 script = ExtResource("1_jntnx")
-health_bar = NodePath("Camera2D/MarginContainer/VBoxContainer/HBoxContainer/HealthBar")
-health_component = NodePath("Player/HealthComponent")
+health_bar = NodePath("Player/Camera2D/MarginContainer/VBoxContainer/HBoxContainer/HealthBar")
+health_component = NodePath("")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_offset = Vector2(10, 0)
+repeat_size = Vector2(406, 0)
+repeat_times = 12
+screen_offset = Vector2(5, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_uq7g2")
+
+[node name="Player" parent="." instance=ExtResource("1_fk7hs")]
+position = Vector2(-53.2317, 0.944939)
+metadata/_edit_group_ = true
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(3, 3)
 
-[node name="MarginContainer" type="MarginContainer" parent="Camera2D"]
+[node name="MarginContainer" type="MarginContainer" parent="Player/Camera2D"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -41,14 +56,14 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Player/Camera2D/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Player/Camera2D/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HealthBar" type="ProgressBar" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="HealthBar" type="ProgressBar" parent="Player/Camera2D/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(80, 5)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -60,34 +75,6 @@ metadata/_edit_use_anchors_ = true
 [node name="HealthPickup" parent="." instance=ExtResource("1_mofkx")]
 position = Vector2(-76.4675, 66.8781)
 metadata/_edit_group_ = true
-
-[node name="Player" parent="." instance=ExtResource("1_fk7hs")]
-position = Vector2(-34.6128, 18.5514)
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" parent="Player" index="0"]
-texture = ExtResource("4_uc6m3")
-flip_h = true
-hframes = 6
-frame = 0
-
-[node name="CollisionShape2D" parent="Player/Hurtbox" index="0"]
-scale = Vector2(1, 0.3)
-
-[node name="Legs" parent="Player/Hurtbox" index="1"]
-position = Vector2(-0.384452, 4.58309)
-scale = Vector2(2, 1.4)
-
-[node name="CollisionShape2D" parent="Player/Hitbox" index="0"]
-position = Vector2(8.53344, 7.41043)
-rotation = 0.0
-scale = Vector2(1e-05, 1e-05)
-
-[node name="AnimationTree" parent="Player" index="6"]
-parameters/UppercutAttack/EndUppercut/blend_position = 0
-parameters/UppercutAttack/FallingUppercut/blend_position = 0
-parameters/UppercutAttack/JumpingUppercut/blend_position = 0
-parameters/UppercutAttack/StartUppercut/blend_position = 0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(-1.4675, -104.767)
@@ -110,9 +97,6 @@ position = Vector2(3, 84)
 rotation = 3.14159
 shape = SubResource("WorldBoundaryShape2D_q6rhk")
 
-[connection signal="damaged" from="Player/HealthComponent" to="Camera2D/MarginContainer/VBoxContainer/HBoxContainer/HealthBar" method="_on_health_component_damaged"]
-[connection signal="healed" from="Player/HealthComponent" to="Camera2D/MarginContainer/VBoxContainer/HBoxContainer/HealthBar" method="_on_health_component_healed"]
-
-[editable path="Player"]
-[editable path="Player/Hurtbox"]
-[editable path="Player/Hitbox"]
+[node name="Toaster" parent="." instance=ExtResource("1_4ab5d")]
+position = Vector2(88.6444, -5.79085)
+knockback = 400

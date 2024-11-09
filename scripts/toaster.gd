@@ -59,6 +59,7 @@ func _on_timer_timeout() -> void:
 
 func _on_health_component_damaged() -> void:
 	damaged_length.start()
+	print(player.last_facing_direction)
 	if not player.dash_timeout.is_stopped():
 		velocity.y = -300
 		velocity.x = player.last_facing_direction.x * knockback

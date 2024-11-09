@@ -6,6 +6,7 @@ class_name Player
 
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var dash_timeout: Timer = $DashTimeout
+@onready var attacking: Timer = $Attacking
 
 const BASE_SPEED := 150.0
 const RUN_SPEED := 250.0
@@ -34,6 +35,8 @@ var can_dash = true
 var dash_length_seconds := 0.1
 var dash_length_distance := 250.0
 
+var uppercutting = false
+
 var state = State.IDLE
 enum State
 {
@@ -53,12 +56,12 @@ enum Attacks
 }
 
 func _physics_process(delta: float) -> void:
-	print("idling: " + str(idling))
-	print("walking: " + str(walking))
-	print("dashing: " + str(dashing))
-	print("jumping: " + str(jumping))
-	
-	print(attack_state)
+	#print("idling: " + str(idling))
+	#print("walking: " + str(walking))
+	#print("dashing: " + str(dashing))
+	#print("jumping: " + str(jumping))
+	#
+	#print(attack_state)
 	
 	# Performs state actions based on active state; state is changed in state functions
 	match state:
@@ -87,7 +90,7 @@ func change_state() -> bool:
 	if Input.is_action_just_pressed("jump") and (is_on_floor() or is_on_ceiling()) and not jumping:
 		state = State.JUMP
 		return true
-	elif Input.is_action_just_pressed("dash") and not dashing and times_dashed < MAX_DASHES and dash_timeout.is_stopped():
+	elif Input.is_action_just_pressed("dash") and not dashing and times_dashed < MAX_DASHES and dash_timeout.is_stopped() and not uppercutting:
 		state = State.DASH
 		return true
 	elif direction.x and not walking and (is_on_floor() or is_on_ceiling()):
@@ -98,8 +101,11 @@ func change_state() -> bool:
 		return true
 	if Input.is_action_just_pressed("attack"):
 		detect_attack_type()
-		if attack_state == Attacks.UPPER and is_on_floor():
+		if attack_state == Attacks.UPPER and is_on_floor() and not uppercutting:
 			upper_attack_state()
+	elif is_on_floor():
+		attack_state = Attacks.IDLE
+		uppercutting = false
 	else:
 		attack_state = Attacks.IDLE
 	return false
@@ -133,7 +139,7 @@ func jump_state(delta):
 func dash_state(delta):
 	# Called one frame only
 	# Increases times dashed, disables gravity, and adds dash velocity
-	if not dashing:
+	if not dashing and not uppercutting:
 		dash_timeout.start()
 		can_dash = false
 		velocity.y = 0.0
@@ -144,29 +150,34 @@ func dash_state(delta):
 		#	velocity = velocity.move_toward(last_facing_direction.normalized() * dash_length_distance * 0.8, dash_speed)
 		#else:
 		velocity.x = move_toward(velocity.x, last_facing_direction.normalized().x * dash_length_distance, dash_speed)
+		dashing = true
 	elif dash_length_seconds >= 0.0: 	# While dashing, update timer (dash length in seconds)
 		dash_length_seconds -= 0.01
-	dashing = true
 	move_and_slide()
 	# Once timer ends, reset state
 	# Times dashed is reset in apply gravity function once player hits ground
 	if dash_length_seconds <= 0.0:
 		dashing = false
+		uppercutting = false
 		# If jumping is not set to true, the player will jump immediately after dash, could be good for slide
 		jumping = true
 		state = State.JUMP
 		dash_length_seconds = BASE_DASH_LENGTH_SECONDS
 
 func detect_attack_type():
-	if direction.y != 0.0:
-		attack_state = Attacks.UPPER
-	elif state == State.WALK or state == State.IDLE:
-		attack_state = Attacks.BASIC
-	elif state == State.JUMP:
-		attack_state = Attacks.AIR
+	if attacking.is_stopped():
+		if direction.y < 0.0:
+			attack_state = Attacks.UPPER
+		elif state == State.WALK or state == State.IDLE:
+			attack_state = Attacks.BASIC
+		elif state == State.JUMP:
+			attack_state = Attacks.AIR
+		attacking.start()
 
 func upper_attack_state():
-	velocity.y = jump_velocity
+	if not uppercutting and is_on_floor() and not dashing:
+		velocity.y = jump_velocity
+	uppercutting = true
 
 func get_direction():
 	direction = Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down"))
