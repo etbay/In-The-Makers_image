@@ -2997,7 +2997,7 @@ tracks/16/keys = {
 
 [sub_resource type="Animation" id="Animation_xdlrc"]
 resource_name = "StartEndUppercutAttackLeft"
-length = 0.2
+length = 0.1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -3206,7 +3206,7 @@ tracks/16/keys = {
 
 [sub_resource type="Animation" id="Animation_m7yff"]
 resource_name = "StartEndUppercutAttackRight"
-length = 0.2
+length = 0.1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false

@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://c4o2c3alm8aee"]
 
-[ext_resource type="PackedScene" uid="uid://x3oj5neqd3n3" path="res://scenes/toaster.tscn" id="1_4ab5d"]
 [ext_resource type="PackedScene" uid="uid://docergpbnrtt7" path="res://scenes/player.tscn" id="1_fk7hs"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_jntnx"]
 [ext_resource type="PackedScene" uid="uid://c63ujwnqgimxp" path="res://scenes/health_pickup.tscn" id="1_mofkx"]
 [ext_resource type="Texture2D" uid="uid://c8v4q27f1utix" path="res://assets/desolate_world_background.png" id="2_uq7g2"]
+[ext_resource type="Texture2D" uid="uid://dhj5ab7tueofo" path="res://assets/player/dashattack.png" id="4_uc6m3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tqfl7"]
 bg_color = Color(0.999984, 0.803284, 0.770477, 1)
@@ -22,11 +22,12 @@ distance = -72.0
 [node name="Level 1" type="Node2D" node_paths=PackedStringArray("health_bar", "health_component")]
 script = ExtResource("1_jntnx")
 health_bar = NodePath("Player/Camera2D/MarginContainer/VBoxContainer/HBoxContainer/HealthBar")
-health_component = NodePath("")
+health_component = NodePath("Player/HealthComponent")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.1, 0.3)
 scroll_offset = Vector2(10, 0)
-repeat_size = Vector2(406, 0)
+repeat_size = Vector2(420, 0)
 repeat_times = 12
 screen_offset = Vector2(5, 0)
 
@@ -37,6 +38,23 @@ texture = ExtResource("2_uq7g2")
 [node name="Player" parent="." instance=ExtResource("1_fk7hs")]
 position = Vector2(-53.2317, 0.944939)
 metadata/_edit_group_ = true
+
+[node name="Sprite2D" parent="Player" index="0"]
+texture = ExtResource("4_uc6m3")
+flip_h = true
+hframes = 6
+
+[node name="CollisionShape2D" parent="Player/Hurtbox" index="0"]
+rotation = 0.0
+scale = Vector2(1, 0.3)
+
+[node name="Legs" parent="Player/Hurtbox" index="1"]
+rotation = 0.0
+scale = Vector2(2, 1.4)
+
+[node name="CollisionShape2D" parent="Player/Hitbox" index="0"]
+rotation = 0.0
+scale = Vector2(1e-05, 1e-05)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(3, 3)
@@ -97,6 +115,6 @@ position = Vector2(3, 84)
 rotation = 3.14159
 shape = SubResource("WorldBoundaryShape2D_q6rhk")
 
-[node name="Toaster" parent="." instance=ExtResource("1_4ab5d")]
-position = Vector2(88.6444, -5.79085)
-knockback = 400
+[editable path="Player"]
+[editable path="Player/Hurtbox"]
+[editable path="Player/Hitbox"]
