@@ -4,6 +4,9 @@ class_name Player
 # TO-DO
 # - Add Coyote Time
 
+@onready var health_component: HealthComponent = $HealthComponent
+
+
 const BASE_SPEED := 150.0
 const RUN_SPEED := 250.0
 const BASE_ACCELERATION := 20.0
@@ -46,7 +49,7 @@ func _physics_process(delta: float) -> void:
 	#print("dashing: " + str(dashing))
 	#print("jumping: " + str(jumping))
 	
-	print(is_on_ceiling())
+	print(health_component.health)
 	
 	# Performs state actions based on active state; state is changed in state functions
 	match state:

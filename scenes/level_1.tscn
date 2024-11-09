@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4o2c3alm8aee"]
+[gd_scene load_steps=5 format=3 uid="uid://c4o2c3alm8aee"]
 
 [ext_resource type="PackedScene" uid="uid://x3oj5neqd3n3" path="res://scenes/test_enemy.tscn" id="1_4ab5d"]
 [ext_resource type="PackedScene" uid="uid://docergpbnrtt7" path="res://scenes/player.tscn" id="1_fk7hs"]
+[ext_resource type="PackedScene" uid="uid://c63ujwnqgimxp" path="res://scenes/health_pickup.tscn" id="1_mofkx"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_q6rhk"]
 distance = -72.0
@@ -11,8 +12,12 @@ distance = -72.0
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
+[node name="HealthPickup" parent="." instance=ExtResource("1_mofkx")]
+position = Vector2(-82, 112)
+metadata/_edit_group_ = true
+
 [node name="TestEnemy" parent="." instance=ExtResource("1_4ab5d")]
-position = Vector2(35, 8)
+position = Vector2(61, 117)
 
 [node name="Player" parent="." instance=ExtResource("1_fk7hs")]
 position = Vector2(-22, 55)

@@ -7,6 +7,7 @@ var health : float
 
 signal died
 signal damaged
+signal healed
 
 func _ready():
 	health = MAX_HEALTH
@@ -16,6 +17,11 @@ func damage(attack):
 	health -= attack
 	if health < 0:
 		death()
+
+func heal(heal):
+	healed.emit()
+	health += heal
+	health = clamp(health, 0, MAX_HEALTH)
 
 func death():
 	died.emit()
