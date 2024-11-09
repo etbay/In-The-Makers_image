@@ -15,7 +15,7 @@ func _ready():
 func damage(attack):
 	damaged.emit()
 	health -= attack
-	if health < 0:
+	if health <= 0:
 		death()
 
 func heal(heal):
