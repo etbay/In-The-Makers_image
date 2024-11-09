@@ -5,9 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://dcd72ihkctsg4" path="res://components/hurtbox.tscn" id="3_2lc15"]
 [ext_resource type="PackedScene" uid="uid://daytajnd160e8" path="res://components/health_component.tscn" id="3_idoy7"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e2lnu"]
-radius = 5.0
-height = 18.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3idhp"]
+size = Vector2(10, 19)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nxhkp"]
 radius = 9.0
@@ -25,8 +24,8 @@ hframes = 8
 vframes = 8
 
 [node name="PhysicsHitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
-shape = SubResource("CapsuleShape2D_e2lnu")
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_3idhp")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_idoy7")]
 player = NodePath("..")

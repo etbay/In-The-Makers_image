@@ -8,7 +8,7 @@ const BASE_SPEED := 150.0
 const RUN_SPEED := 250.0
 const BASE_ACCELERATION := 20.0
 const BASE_FRICTION := 20.0
-const JUMP_VELOCITY := -300.0
+const BASE_JUMP_VELOCITY := -300.0
 const BASE_ENGINE_TIME_SCALE := 1.0
 const MAX_DASHES := 1
 var BASE_DASH_LENGTH_SECONDS := 0.1
@@ -17,6 +17,7 @@ var gravity_percent := 0.8
 var speed = BASE_SPEED
 var acceleration = BASE_ACCELERATION
 var friction = BASE_FRICTION
+var jump_velocity = BASE_JUMP_VELOCITY
 var direction = Vector2.ZERO
 var last_facing_direction = Vector2.ZERO
 
@@ -45,7 +46,7 @@ func _physics_process(delta: float) -> void:
 	#print("dashing: " + str(dashing))
 	#print("jumping: " + str(jumping))
 	
-	#print(velocity)
+	print(is_on_ceiling())
 	
 	# Performs state actions based on active state; state is changed in state functions
 	match state:
@@ -73,16 +74,16 @@ func set_engine_time():
 # Returns false if state is not changed
 # Return values used to update action variables (jumping, dashing, etc)
 func change_state() -> bool:
-	if Input.is_action_just_pressed("jump") and is_on_floor() and not jumping:
+	if Input.is_action_just_pressed("jump") and (is_on_floor() or is_on_ceiling()) and not jumping:
 		state = State.JUMP
 		return true
 	elif Input.is_action_just_pressed("dash") and not dashing and times_dashed < MAX_DASHES:
 		state = State.DASH
 		return true
-	elif direction and not walking and is_on_floor():
+	elif direction and not walking and (is_on_floor() or is_on_ceiling()):
 		state = State.WALK
 		return true
-	elif not direction and not idling and is_on_floor():
+	elif not direction and not idling and (is_on_floor() or is_on_ceiling()):
 		state = State.IDLE
 		return true
 	return false
@@ -104,8 +105,8 @@ func walk_state(delta):
 	if change_state():
 		walking = false
 func jump_state(delta):
-	if not jumping and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	if not jumping and (is_on_floor() or is_on_ceiling()):
+		velocity.y = jump_velocity
 	jumping = true
 	get_direction()
 	apply_gravity(delta)
