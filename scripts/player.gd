@@ -4,16 +4,16 @@ class_name Player
 # TO-DO
 # - Add Coyote Time
 
-const BASE_SPEED = 150.0
-const RUN_SPEED = 250.0
-const BASE_ACCELERATION = 20.0
-const BASE_FRICTION = 20.0
-const JUMP_VELOCITY = -300.0
-const BASE_ENGINE_TIME_SCALE = 1.0
-const MAX_DASHES = 1
-var BASE_DASH_LENGTH_SECONDS = 0.1
+const BASE_SPEED := 150.0
+const RUN_SPEED := 250.0
+const BASE_ACCELERATION := 20.0
+const BASE_FRICTION := 20.0
+const JUMP_VELOCITY := -300.0
+const BASE_ENGINE_TIME_SCALE := 1.0
+const MAX_DASHES := 1
+var BASE_DASH_LENGTH_SECONDS := 0.1
 
-var gravity_percent = 0.8
+var gravity_percent := 0.8
 var speed = BASE_SPEED
 var acceleration = BASE_ACCELERATION
 var friction = BASE_FRICTION
@@ -24,10 +24,10 @@ var idling = true
 var walking = false
 var jumping = false
 var dashing = false
-var times_dashed = 0
-var dash_speed = 250
-var dash_length_seconds = 0.1
-var dash_length_distance = 250
+var times_dashed := 0
+var dash_speed := 250.0
+var dash_length_seconds := 0.1
+var dash_length_distance := 250.0
 
 var state = State.IDLE
 enum State
@@ -40,12 +40,12 @@ enum State
 }
 
 func _physics_process(delta: float) -> void:
-	print("idling: " + str(idling))
-	print("walking: " + str(walking))
-	print("dashing: " + str(dashing))
-	print("jumping: " + str(jumping))
+	#print("idling: " + str(idling))
+	#print("walking: " + str(walking))
+	#print("dashing: " + str(dashing))
+	#print("jumping: " + str(jumping))
 	
-	print(velocity)
+	#print(velocity)
 	
 	# Performs state actions based on active state; state is changed in state functions
 	match state:

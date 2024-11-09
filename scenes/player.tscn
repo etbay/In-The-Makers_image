@@ -1,11 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://docergpbnrtt7"]
+[gd_scene load_steps=8 format=3 uid="uid://docergpbnrtt7"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_bt2jc"]
 [ext_resource type="Texture2D" uid="uid://cmct8hdfcvxvg" path="res://assets/player/knight.png" id="1_ha5d7"]
+[ext_resource type="PackedScene" uid="uid://dcd72ihkctsg4" path="res://components/hurtbox.tscn" id="3_2lc15"]
+[ext_resource type="PackedScene" uid="uid://daytajnd160e8" path="res://components/health_component.tscn" id="3_idoy7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e2lnu"]
 radius = 5.0
 height = 18.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nxhkp"]
+radius = 9.0
+height = 24.0
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_wu7b4"]
 
@@ -22,6 +28,17 @@ vframes = 8
 position = Vector2(0, 5)
 shape = SubResource("CapsuleShape2D_e2lnu")
 
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_idoy7")]
+player = NodePath("..")
+MAX_HEALTH = 2.0
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_2lc15")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_nxhkp")
+
 [node name="AnimationTree" type="AnimationTree" parent="."]
 root_node = NodePath(".")
 tree_root = SubResource("AnimationNodeStateMachine_wu7b4")
@@ -30,3 +47,5 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimationTree")
+
+[editable path="Hurtbox"]
