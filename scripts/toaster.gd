@@ -5,6 +5,10 @@ extends CharacterBody2D
 @export var ammo : PackedScene
 @onready var health_component: HealthComponent = $HealthComponent
 
+@export var speed = 20
+@export var acceleration = 20
+var friction = 20
+
 var player : CharacterBody2D
 
 func _ready():
@@ -13,8 +17,12 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	aim()
 	check_player_collision()
-	print(health_component.health)
-	velocity += get_gravity() * delta
+	#print(health_component.health)
+	velocity += get_gravity() * 0.6 * delta
+	if is_on_floor():
+		velocity.x = move_toward(0, ray_cast.target_position.normalized().x * speed, acceleration)
+	else:
+		velocity.x = move_toward(velocity.x, 0, friction)
 	move_and_slide()
 
 func aim():
@@ -28,10 +36,11 @@ func check_player_collision():
 		timer.stop()
 
 func shoot():
-	var bullet = ammo.instantiate()
-	bullet.position = position
-	bullet.direction.x = (ray_cast.target_position).normalized().x
-	get_tree().current_scene.add_child(bullet)
+	if is_on_floor():
+		var bullet = ammo.instantiate()
+		bullet.position = position
+		bullet.direction.x = (ray_cast.target_position).normalized().x
+		get_tree().current_scene.add_child(bullet)
 
 func _on_timer_timeout() -> void:
 	shoot()

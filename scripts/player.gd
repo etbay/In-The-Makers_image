@@ -5,7 +5,7 @@ class_name Player
 # - Add Coyote Time
 
 @onready var health_component: HealthComponent = $HealthComponent
-
+@onready var dash_timeout: Timer = $DashTimeout
 
 const BASE_SPEED := 150.0
 const RUN_SPEED := 250.0
@@ -29,7 +29,8 @@ var walking = false
 var jumping = false
 var dashing = false
 var times_dashed := 0
-var dash_speed := 250.0
+var dash_speed := 300.0
+var can_dash = true
 var dash_length_seconds := 0.1
 var dash_length_distance := 250.0
 
@@ -49,7 +50,7 @@ func _physics_process(delta: float) -> void:
 	#print("dashing: " + str(dashing))
 	#print("jumping: " + str(jumping))
 	
-	print(health_component.health)
+	#print(get_gravity())
 	
 	# Performs state actions based on active state; state is changed in state functions
 	match state:
@@ -80,7 +81,7 @@ func change_state() -> bool:
 	if Input.is_action_just_pressed("jump") and (is_on_floor() or is_on_ceiling()) and not jumping:
 		state = State.JUMP
 		return true
-	elif Input.is_action_just_pressed("dash") and not dashing and times_dashed < MAX_DASHES:
+	elif Input.is_action_just_pressed("dash") and not dashing and times_dashed < MAX_DASHES and dash_timeout.is_stopped():
 		state = State.DASH
 		return true
 	elif direction and not walking and (is_on_floor() or is_on_ceiling()):
@@ -121,6 +122,8 @@ func dash_state(delta):
 	# Called one frame only
 	# Increases times dashed, disables gravity, and adds dash velocity
 	if not dashing:
+		dash_timeout.start()
+		can_dash = false
 		velocity.y = 0.0
 		times_dashed += 1
 		# If diagonal dashing, speed is changed
@@ -165,3 +168,6 @@ func apply_horizontal_movement():
 		velocity.x = move_toward(velocity.x, direction.x * speed, acceleration)
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction)
+
+func _on_dash_timeout_timeout() -> void:
+	can_dash = true

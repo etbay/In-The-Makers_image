@@ -59,5 +59,10 @@ anim_player = NodePath("../AnimationPlayer")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimationTree")
 
+[node name="DashTimeout" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="DashTimeout" to="." method="_on_dash_timeout_timeout"]
+
 [editable path="Hurtbox"]
 [editable path="Hitbox"]

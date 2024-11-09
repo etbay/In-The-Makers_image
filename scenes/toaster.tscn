@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=3 uid="uid://x3oj5neqd3n3"]
 
-[ext_resource type="Script" path="res://scripts/test_enemy.gd" id="1_lo1vv"]
-[ext_resource type="Texture2D" uid="uid://cmct8hdfcvxvg" path="res://assets/player/knight.png" id="1_unhum"]
-[ext_resource type="PackedScene" uid="uid://p7rtwtkyoxl6" path="res://components/hitbox.tscn" id="2_3x7i2"]
-[ext_resource type="PackedScene" uid="uid://dwp5lfo58lxea" path="res://scenes/bullet.tscn" id="2_esxvj"]
-[ext_resource type="PackedScene" uid="uid://daytajnd160e8" path="res://components/health_component.tscn" id="5_c4bra"]
-[ext_resource type="PackedScene" uid="uid://dcd72ihkctsg4" path="res://components/hurtbox.tscn" id="6_i0c0g"]
+[ext_resource type="Script" path="res://scripts/toaster.gd" id="1_texhx"]
+[ext_resource type="PackedScene" uid="uid://dwp5lfo58lxea" path="res://scenes/bullet.tscn" id="2_gj7jo"]
+[ext_resource type="Texture2D" uid="uid://cmct8hdfcvxvg" path="res://assets/player/knight.png" id="3_ehsvb"]
+[ext_resource type="PackedScene" uid="uid://p7rtwtkyoxl6" path="res://components/hitbox.tscn" id="4_c7l60"]
+[ext_resource type="PackedScene" uid="uid://daytajnd160e8" path="res://components/health_component.tscn" id="5_282ws"]
+[ext_resource type="PackedScene" uid="uid://dcd72ihkctsg4" path="res://components/hurtbox.tscn" id="6_gf5t5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lrisg"]
 radius = 9.0
@@ -17,20 +17,20 @@ height = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_myaba"]
 
-[node name="TestEnemy" type="CharacterBody2D"]
+[node name="Toaster" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("1_lo1vv")
-ammo = ExtResource("2_esxvj")
+script = ExtResource("1_texhx")
+ammo = ExtResource("2_gj7jo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_unhum")
+texture = ExtResource("3_ehsvb")
 flip_h = true
 flip_v = true
 hframes = 8
 vframes = 9
 
-[node name="Hitbox" parent="." instance=ExtResource("2_3x7i2")]
+[node name="Hitbox" parent="." instance=ExtResource("4_c7l60")]
 collision_layer = 16
 collision_mask = 8
 
@@ -47,11 +47,11 @@ shape = SubResource("CapsuleShape2D_a7p12")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_c4bra")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_282ws")]
 player = NodePath("..")
 MAX_HEALTH = 4.0
 
-[node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_i0c0g")]
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_gf5t5")]
 collision_layer = 32
 collision_mask = 4
 health_component = NodePath("../HealthComponent")

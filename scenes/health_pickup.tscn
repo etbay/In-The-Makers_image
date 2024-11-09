@@ -7,6 +7,7 @@
 radius = 7.0
 
 [node name="HealthPickup" type="Area2D"]
+collision_mask = 8
 script = ExtResource("1_mi85t")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
