@@ -33,13 +33,14 @@ func aim():
 		ray_cast.target_position = to_local(player.position)
 
 func check_player_collision():
-	if ray_cast.get_collider() == player and timer.is_stopped():
-		timer.start()
-	elif ray_cast.get_collider() != player and not timer.is_stopped():
-		timer.stop()
+	if player:
+		if ray_cast.get_collider() == player and timer.is_stopped():
+			timer.start()
+		elif ray_cast.get_collider() != player and not timer.is_stopped():
+			timer.stop()
 
 func shoot():
-	if is_on_floor():
+	if is_on_floor() and is_instance_valid(player):
 		var bullet1 = ammo.instantiate()
 		var bullet2 = ammo.instantiate()
 		var bullet3 = ammo.instantiate()

@@ -7,9 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://daytajnd160e8" path="res://components/health_component.tscn" id="5_282ws"]
 [ext_resource type="PackedScene" uid="uid://dcd72ihkctsg4" path="res://components/hurtbox.tscn" id="6_gf5t5"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lrisg"]
-radius = 9.0
-height = 22.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5qrvx"]
+size = Vector2(10, 12.9887)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a7p12"]
 radius = 5.0
@@ -34,10 +33,11 @@ collision_layer = 16
 collision_mask = 8
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
-position = Vector2(0, -5)
-shape = SubResource("CapsuleShape2D_lrisg")
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_5qrvx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -4)
 shape = SubResource("CapsuleShape2D_a7p12")
 
@@ -48,9 +48,9 @@ wait_time = 2.0
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_282ws")]
 player = NodePath("..")
-MAX_HEALTH = 4.0
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_gf5t5")]
+visible = false
 collision_layer = 32
 collision_mask = 4
 health_component = NodePath("../HealthComponent")

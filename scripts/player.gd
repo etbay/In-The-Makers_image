@@ -53,10 +53,10 @@ enum Attacks
 }
 
 func _physics_process(delta: float) -> void:
-	#print("idling: " + str(idling))
-	#print("walking: " + str(walking))
-	#print("dashing: " + str(dashing))
-	#print("jumping: " + str(jumping))
+	print("idling: " + str(idling))
+	print("walking: " + str(walking))
+	print("dashing: " + str(dashing))
+	print("jumping: " + str(jumping))
 	
 	print(attack_state)
 	
@@ -98,6 +98,8 @@ func change_state() -> bool:
 		return true
 	if Input.is_action_just_pressed("attack"):
 		detect_attack_type()
+		if attack_state == Attacks.UPPER and is_on_floor():
+			upper_attack_state()
 	else:
 		attack_state = Attacks.IDLE
 	return false
@@ -162,6 +164,9 @@ func detect_attack_type():
 		attack_state = Attacks.BASIC
 	elif state == State.JUMP:
 		attack_state = Attacks.AIR
+
+func upper_attack_state():
+	velocity.y = jump_velocity
 
 func get_direction():
 	direction = Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down"))
