@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://c4o2c3alm8aee"]
+[gd_scene load_steps=12 format=3 uid="uid://c4o2c3alm8aee"]
 
 [ext_resource type="PackedScene" uid="uid://docergpbnrtt7" path="res://scenes/player.tscn" id="1_fk7hs"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_jntnx"]
 [ext_resource type="PackedScene" uid="uid://c63ujwnqgimxp" path="res://scenes/health_pickup.tscn" id="1_mofkx"]
 [ext_resource type="Texture2D" uid="uid://c8v4q27f1utix" path="res://assets/desolate_world_background.png" id="2_uq7g2"]
+[ext_resource type="Texture2D" uid="uid://dseb78kmtqktk" path="res://assets/player/aerial_attack.png" id="4_ukg7l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tqfl7"]
 bg_color = Color(0.999984, 0.803284, 0.770477, 1)
@@ -50,12 +51,29 @@ texture = ExtResource("2_uq7g2")
 position = Vector2(-105.684, 16.8656)
 
 [node name="Sprite2D" parent="Player" index="0"]
-frame = 1
+texture = ExtResource("4_ukg7l")
+frame = 0
 
 [node name="HealthComponent" parent="Player" index="2"]
 MAX_HEALTH = 1
 
+[node name="CollisionShape2D" parent="Player/Hurtbox" index="0"]
+position = Vector2(-3.5076, -4.75974)
+scale = Vector2(2, 1)
+
+[node name="Legs" parent="Player/Hurtbox" index="1"]
+position = Vector2(-3.43928, 7.10377)
+scale = Vector2(2.5, 0.7)
+
+[node name="CollisionShape2D" parent="Player/Hitbox" index="0"]
+position = Vector2(-12.5949, 3.84179)
+scale = Vector2(1, 1.9)
+
 [node name="AnimationTree" parent="Player" index="6"]
+parameters/AerialAttack/AerialAttack/AerialAttackBlend/blend_position = 0
+parameters/AerialAttack/AerialAttack/TimeScale/scale = 1.0
+parameters/AerialAttack/Falling/blend_position = 0
+parameters/AerialAttack/Jumping/blend_position = 0
 parameters/Idle/TimeScale/scale = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]

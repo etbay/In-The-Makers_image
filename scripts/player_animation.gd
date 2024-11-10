@@ -10,6 +10,7 @@ func _process(delta: float) -> void:
 	animation_tree.call_deferred("set", "parameters/Idle/TimeScale/scale", 0.5)
 	animation_tree.call_deferred("set", "parameters/Moving/TimeScale/scale", 1.5)
 	animation_tree.call_deferred("set", "parameters/Dash/TimeScale/scale", 1.5)
+	animation_tree.call_deferred("set", "parameters/AerialAttack/AerialAttack/TimeScale/scale", 1.5)
 	if player.direction.x != 0:
 		last_facing_direction = player.velocity.normalized()
 	animation_tree.call_deferred("set", "parameters/Moving/MovingBlend/blend_position", last_facing_direction.x)
@@ -25,5 +26,7 @@ func _process(delta: float) -> void:
 		animation_tree.set("parameters/UppercutAttack/JumpingUppercut/blend_position", last_facing_direction.x)
 		animation_tree.set("parameters/UppercutAttack/FallingUppercut/blend_position", last_facing_direction.x)
 		animation_tree.set("parameters/UppercutAttack/EndUppercut/blend_position", last_facing_direction.x)
+		animation_tree.set("parameters/AerialAttack/AerialAttack/AerialAttackBlend/blend_position", last_facing_direction.x)
+		animation_tree.set("parameters/AerialAttack/Falling/blend_position", last_facing_direction.x)
 	if player.dash_timeout.is_stopped():
 		animation_tree.set("parameters/Dash/DashBlend/blend_position", last_facing_direction.x)

@@ -7,6 +7,7 @@ class_name Player
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var dash_timeout: Timer = $DashTimeout
 @onready var attacking: Timer = $Attacking
+@onready var air_wait: Timer = $AirWait
 
 const BASE_SPEED := 150.0
 const RUN_SPEED := 250.0
@@ -37,6 +38,7 @@ var dash_length_distance := 250.0
 
 var dead = false
 var uppercutting = false
+var times_aerial_attacked = 0
 
 var state = State.IDLE
 enum State
@@ -63,7 +65,7 @@ func _physics_process(delta: float) -> void:
 	#print("dashing: " + str(dashing))
 	#print("jumping: " + str(jumping))
 	#
-	#print(uppercutting)
+	print(attack_state)
 	
 	# Performs state actions based on active state; state is changed in state functions
 	match state:
@@ -110,6 +112,8 @@ func change_state() -> bool:
 		detect_attack_type()
 		if attack_state == Attacks.UPPER and is_on_floor() and not uppercutting:
 			upper_attack_state()
+		if attack_state == Attacks.AIR and not is_on_floor():
+			aerial_attack_state()
 	elif is_on_floor():
 		attack_state = Attacks.IDLE
 		uppercutting = false
@@ -177,11 +181,11 @@ func dead_state(delta):
 
 func detect_attack_type():
 	if attacking.is_stopped():
-		if direction.y < 0.0:
+		if direction.y < 0.0 and is_on_floor():
 			attack_state = Attacks.UPPER
 		elif state == State.WALK or state == State.IDLE:
 			attack_state = Attacks.BASIC
-		elif state == State.JUMP:
+		elif state == State.JUMP and not is_on_floor():
 			attack_state = Attacks.AIR
 		attacking.start()
 
@@ -189,6 +193,11 @@ func upper_attack_state():
 	if not uppercutting and is_on_floor() and not dashing:
 		velocity.y = jump_velocity
 	uppercutting = true
+
+func aerial_attack_state():
+	if not is_on_floor() and times_aerial_attacked < MAX_DASHES:
+		air_wait.start()
+		times_aerial_attacked += 1
 
 func get_direction():
 	direction = Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down"))
@@ -202,6 +211,7 @@ func apply_gravity(delta):
 		velocity += get_gravity() * delta * gravity_percent
 	else:
 		times_dashed = 0
+		times_aerial_attacked = 0
 
 func apply_horizontal_movement():
 	if not dashing:
@@ -221,3 +231,7 @@ func _on_health_component_died() -> void:
 func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "DeathRight" or anim_name == "DeathLeft":
 		print("dead")
+
+
+func _on_air_wait_timeout() -> void:
+	velocity.y = jump_velocity * 1.3
