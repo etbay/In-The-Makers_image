@@ -2,30 +2,49 @@
 
 [ext_resource type="Script" path="res://scripts/bullet.gd" id="1_urxp7"]
 [ext_resource type="PackedScene" uid="uid://p7rtwtkyoxl6" path="res://components/hitbox.tscn" id="2_k7nos"]
-[ext_resource type="Texture2D" uid="uid://d217462mhf0n3" path="res://assets/fruit.png" id="3_2u8ft"]
+[ext_resource type="Texture2D" uid="uid://cjugqwn0evguy" path="res://assets/enemies/toaster_move.png" id="3_ou460"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_w53mn"]
-radius = 8.06226
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_orljk"]
+size = Vector2(11.2253, 9.19239)
 
 [node name="Bullet" type="Node2D"]
 script = ExtResource("1_urxp7")
 
 [node name="Hitbox" parent="." instance=ExtResource("2_k7nos")]
-collision_layer = 16
+collision_layer = 18
 collision_mask = 8
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
-shape = SubResource("CircleShape2D_w53mn")
+position = Vector2(-0.112011, 1.94479)
+shape = SubResource("RectangleShape2D_orljk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_2u8ft")
-hframes = 4
-vframes = 4
-frame = 4
+position = Vector2(2.36, 3.39)
+texture = ExtResource("3_ou460")
+hframes = 7
+frame = 6
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-1.06066, 2.82843)
+scale = Vector2(0.893934, 0.717157)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 7.745)
+
+[node name="RayCast2D2" type="RayCast2D" parent="."]
+rotation = 1.5708
+target_position = Vector2(0, 7.745)
+
+[node name="RayCast2D3" type="RayCast2D" parent="."]
+rotation = -1.5708
+target_position = Vector2(0, 7.745)
+
+[node name="RayCast2D4" type="RayCast2D" parent="."]
+rotation = 3.14159
+target_position = Vector2(0, 7.745)
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_screen_exited"]
 
 [editable path="Hitbox"]

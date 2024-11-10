@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6wqweorsfuji"]
+
+[ext_resource type="AudioStream" uid="uid://cbin7hnjn2jsv" path="res://assets/music/Crimson_Jam_2024.mp3" id="1_w61n1"]
+
+[node name="Music" type="AudioStreamPlayer"]
+stream = ExtResource("1_w61n1")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
