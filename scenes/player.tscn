@@ -4648,6 +4648,7 @@ hframes = 6
 frame = 2
 
 [node name="PhysicsHitbox" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 4.5)
 shape = SubResource("RectangleShape2D_3idhp")
 
@@ -4656,6 +4657,7 @@ visible = false
 player = NodePath("..")
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_2lc15")]
+visible = false
 collision_layer = 8
 collision_mask = 16
 health_component = NodePath("../HealthComponent")
@@ -4671,6 +4673,7 @@ scale = Vector2(2, 1.4)
 shape = SubResource("CapsuleShape2D_dice2")
 
 [node name="Hitbox" parent="." instance=ExtResource("4_b3pke")]
+visible = false
 collision_layer = 4
 collision_mask = 32
 

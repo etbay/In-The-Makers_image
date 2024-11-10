@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4o2c3alm8aee"]
+[gd_scene load_steps=11 format=3 uid="uid://c4o2c3alm8aee"]
 
 [ext_resource type="PackedScene" uid="uid://docergpbnrtt7" path="res://scenes/player.tscn" id="1_fk7hs"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_jntnx"]
 [ext_resource type="PackedScene" uid="uid://c63ujwnqgimxp" path="res://scenes/health_pickup.tscn" id="1_mofkx"]
 [ext_resource type="Texture2D" uid="uid://c8v4q27f1utix" path="res://assets/desolate_world_background.png" id="2_uq7g2"]
-[ext_resource type="Texture2D" uid="uid://dhj5ab7tueofo" path="res://assets/player/dashattack.png" id="4_uc6m3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tqfl7"]
 bg_color = Color(0.999984, 0.803284, 0.770477, 1)
@@ -19,14 +18,25 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_lme5g")
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_q6rhk"]
 distance = -72.0
 
+[sub_resource type="Gradient" id="Gradient_2kwq8"]
+offsets = PackedFloat32Array(0, 0.628788)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jtcne"]
+gradient = SubResource("Gradient_2kwq8")
+width = 239
+height = 214
+fill = 1
+fill_from = Vector2(0.491453, 0.495726)
+
 [node name="Level 1" type="Node2D" node_paths=PackedStringArray("health_bar", "health_component")]
 script = ExtResource("1_jntnx")
 health_bar = NodePath("Player/Camera2D/MarginContainer/VBoxContainer/HBoxContainer/HealthBar")
 health_component = NodePath("Player/HealthComponent")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
-scroll_scale = Vector2(0.1, 0.3)
-scroll_offset = Vector2(10, 0)
+scroll_scale = Vector2(0.1, 0.2)
+scroll_offset = Vector2(10, 250)
 repeat_size = Vector2(420, 0)
 repeat_times = 12
 screen_offset = Vector2(5, 0)
@@ -36,25 +46,8 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_uq7g2")
 
 [node name="Player" parent="." instance=ExtResource("1_fk7hs")]
-position = Vector2(-53.2317, 0.944939)
+position = Vector2(-105.684, 16.8656)
 metadata/_edit_group_ = true
-
-[node name="Sprite2D" parent="Player" index="0"]
-texture = ExtResource("4_uc6m3")
-flip_h = true
-hframes = 6
-
-[node name="CollisionShape2D" parent="Player/Hurtbox" index="0"]
-rotation = 0.0
-scale = Vector2(1, 0.3)
-
-[node name="Legs" parent="Player/Hurtbox" index="1"]
-rotation = 0.0
-scale = Vector2(2, 1.4)
-
-[node name="CollisionShape2D" parent="Player/Hitbox" index="0"]
-rotation = 0.0
-scale = Vector2(1e-05, 1e-05)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(3, 3)
@@ -91,7 +84,7 @@ show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="HealthPickup" parent="." instance=ExtResource("1_mofkx")]
-position = Vector2(-76.4675, 66.8781)
+position = Vector2(-182.931, 33.4902)
 metadata/_edit_group_ = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -114,6 +107,16 @@ metadata/_edit_group_ = true
 position = Vector2(3, 84)
 rotation = 3.14159
 shape = SubResource("WorldBoundaryShape2D_q6rhk")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-67.5862, 7.73805)
+color = Color(0.197892, 0.777381, 0.922763, 1)
+texture = SubResource("GradientTexture2D_jtcne")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+color = Color(0.198522, 0.707147, 0.846563, 1)
+energy = 0.42
+blend_mode = 1
 
 [editable path="Player"]
 [editable path="Player/Hurtbox"]
