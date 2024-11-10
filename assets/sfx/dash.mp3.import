@@ -2,13 +2,13 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://7dtosmn0xf00"
-path="res://.godot/imported/dash.mp3-83bf67e00f90edc7ab7904c1c208c14e.mp3str"
+uid="uid://cqb61u8rhjlh5"
+path="res://.godot/imported/Dash.mp3-f0573ad7adbe69210ebc25b45db8e169.mp3str"
 
 [deps]
 
-source_file="res://assets/sfx/dash.mp3"
-dest_files=["res://.godot/imported/dash.mp3-83bf67e00f90edc7ab7904c1c208c14e.mp3str"]
+source_file="res://assets/sfx/Dash.mp3"
+dest_files=["res://.godot/imported/Dash.mp3-f0573ad7adbe69210ebc25b45db8e169.mp3str"]
 
 [params]
 

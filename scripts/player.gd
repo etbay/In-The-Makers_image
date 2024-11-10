@@ -18,6 +18,8 @@ class_name Player
 @onready var physics_hitbox: CollisionShape2D = $PhysicsHitbox
 @onready var death_timer: Timer = $DeathTimer
 @onready var landing_sound: AudioStreamPlayer2D = $Audio/LandingSound
+@onready var jump_sound: AudioStreamPlayer2D = $Audio/JumpSound
+@onready var dash_sound: AudioStreamPlayer2D = $Audio/DashSound
 
 const BASE_SPEED := 150.0
 const RUN_SPEED := 250.0
@@ -49,6 +51,7 @@ var dash_length_distance := 250.0
 var dead = false
 var uppercutting = false
 var times_aerial_attacked = 0
+var falling = false
 
 var state = State.IDLE
 enum State
@@ -79,6 +82,8 @@ func _physics_process(delta: float) -> void:
 	#print("jumping: " + str(jumping))
 	#
 	#print(death_timer.time_left)
+	if velocity.y > 0:
+		falling = true
 	
 	# Performs state actions based on active state; state is changed in state functions
 	match state:
@@ -158,6 +163,7 @@ func walk_state(delta):
 		walking = false
 func jump_state(delta):
 	if not jumping and (is_on_floor() or is_on_ceiling()):
+		jump_sound.play()
 		velocity.y = jump_velocity
 	jumping = true
 	get_direction()
@@ -170,6 +176,7 @@ func dash_state(delta):
 	# Called one frame only
 	# Increases times dashed, disables gravity, and adds dash velocity
 	if not dashing and not uppercutting:
+		dash_sound.play()
 		dash_timeout.start()
 		can_dash = false
 		velocity.y = 0.0
@@ -234,6 +241,9 @@ func apply_gravity(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * delta * gravity_percent
 	else:
+		if falling:
+			falling = false
+			landing_sound.play()
 		times_dashed = 0
 		times_aerial_attacked = 0
 
