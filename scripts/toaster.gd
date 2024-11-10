@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@onready var detect_cliff: RayCast2D = $DetectCliff
 @onready var ray_cast: RayCast2D = $RayCast2D
 @onready var move_time: Timer = $MoveTime
 @export var ammo : PackedScene
@@ -27,6 +28,9 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	#print(not move_time.is_stopped())
 	#print(not shoot_time.is_stopped())
+	if not detect_cliff.is_colliding() and damaged_length.is_stopped():
+		move_to_player.start()
+	
 	if active:
 		aim()
 		velocity.y += get_gravity().y * 0.5 * delta

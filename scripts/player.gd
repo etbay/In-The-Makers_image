@@ -8,6 +8,12 @@ class_name Player
 @onready var dash_timeout: Timer = $DashTimeout
 @onready var attacking: Timer = $Attacking
 @onready var air_wait: Timer = $AirWait
+@onready var attack_sound: AudioStreamPlayer2D = $Audio/AttackSound
+@onready var aerial_attack_sound: AudioStreamPlayer2D = $Audio/AerialAttackSound
+@onready var uppercut_sound: AudioStreamPlayer2D = $Audio/UppercutSound
+@onready var footstep_sound: AudioStreamPlayer2D = $Audio/FootstepSound
+@onready var footstep_interval: Timer = $FootstepInterval
+@onready var pitch_timer: Timer = $PitchTimer
 
 const BASE_SPEED := 150.0
 const RUN_SPEED := 250.0
@@ -16,7 +22,7 @@ const BASE_FRICTION := 20.0
 const BASE_JUMP_VELOCITY := -300.0
 const BASE_ENGINE_TIME_SCALE := 1.0
 const MAX_DASHES := 1
-var BASE_DASH_LENGTH_SECONDS := 0.1
+var BASE_DASH_LENGTH_SECONDS := 0.2
 
 var gravity_percent := 0.8
 @export var speed = BASE_SPEED
@@ -33,7 +39,7 @@ var dashing = false
 var times_dashed := 0
 var dash_speed := 300.0
 var can_dash = true
-var dash_length_seconds := 0.1
+var dash_length_seconds := BASE_DASH_LENGTH_SECONDS
 var dash_length_distance := 250.0
 
 var dead = false
@@ -59,6 +65,9 @@ enum Attacks
 	BASIC,
 }
 
+func _ready():
+	randomize()
+
 func _physics_process(delta: float) -> void:
 	#print("idling: " + str(idling))
 	#print("walking: " + str(walking))
@@ -66,7 +75,6 @@ func _physics_process(delta: float) -> void:
 	#print("jumping: " + str(jumping))
 	#
 	#print(attack_state)
-	
 	# Performs state actions based on active state; state is changed in state functions
 	match state:
 		State.IDLE:
@@ -130,6 +138,13 @@ func idle_state(delta):
 	if change_state():
 		idling = false
 func walk_state(delta):
+	if not footstep_sound.playing and footstep_interval.is_stopped() and is_on_floor():
+		var rand_float = randf_range(-0.3,0.0)
+		footstep_interval.start()
+		footstep_sound.pitch_scale += rand_float
+		print(footstep_sound.pitch_scale)
+		footstep_sound.play()
+		pitch_timer.start()
 	walking = true
 	get_direction()
 	apply_gravity(delta)
@@ -184,6 +199,7 @@ func detect_attack_type():
 		if direction.y < 0.0 and is_on_floor():
 			attack_state = Attacks.UPPER
 		elif state == State.WALK or state == State.IDLE:
+			attack_sound.play()
 			attack_state = Attacks.BASIC
 		elif state == State.JUMP and not is_on_floor():
 			attack_state = Attacks.AIR
@@ -191,11 +207,13 @@ func detect_attack_type():
 
 func upper_attack_state():
 	if not uppercutting and is_on_floor() and not dashing:
+		uppercut_sound.play()
 		velocity.y = jump_velocity
 	uppercutting = true
 
 func aerial_attack_state():
 	if not is_on_floor() and times_aerial_attacked < MAX_DASHES:
+		aerial_attack_sound.play()
 		air_wait.start()
 		times_aerial_attacked += 1
 
@@ -235,3 +253,7 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 
 func _on_air_wait_timeout() -> void:
 	velocity.y = jump_velocity * 1.3
+
+
+func _on_pitch_timer_timeout() -> void:
+	footstep_sound.pitch_scale = 1.0

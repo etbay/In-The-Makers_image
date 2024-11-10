@@ -20,6 +20,7 @@ func _process(delta: float) -> void:
 	animation_tree.call_deferred("set", "parameters/Jump/Falling/blend_position", last_facing_direction.x)
 	animation_tree.call_deferred("set", "parameters/Jump/EndJump/blend_position", last_facing_direction.x)
 	animation_tree.call_deferred("set", "parameters/Death/DeathBlend/blend_position", last_facing_direction.x)
+	animation_tree.call_deferred("set", "parameters/Falling/blend_position", last_facing_direction.x)
 	if player.attack_state != player.Attacks.IDLE:
 		animation_tree.set("parameters/BasicAttack/BasicAttackBlend/blend_position", last_facing_direction.x)
 		animation_tree.set("parameters/UppercutAttack/StartUppercut/blend_position", last_facing_direction.x)
