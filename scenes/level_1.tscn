@@ -1,10 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://c4o2c3alm8aee"]
+[gd_scene load_steps=14 format=4 uid="uid://c4o2c3alm8aee"]
 
 [ext_resource type="PackedScene" uid="uid://docergpbnrtt7" path="res://scenes/player.tscn" id="1_fk7hs"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_jntnx"]
 [ext_resource type="PackedScene" uid="uid://c63ujwnqgimxp" path="res://scenes/health_pickup.tscn" id="1_mofkx"]
 [ext_resource type="Texture2D" uid="uid://c8v4q27f1utix" path="res://assets/desolate_world_background.png" id="2_uq7g2"]
-[ext_resource type="Texture2D" uid="uid://dseb78kmtqktk" path="res://assets/player/aerial_attack.png" id="4_ukg7l"]
+[ext_resource type="Texture2D" uid="uid://dr2c06j56gact" path="res://assets/tiles/metal_tiles.png" id="5_f6ds6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tqfl7"]
 bg_color = Color(0.999984, 0.803284, 0.770477, 1)
@@ -30,6 +30,93 @@ fill_from = Vector2(0.491453, 0.495726)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_q6rhk"]
 distance = -72.0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2ob4"]
+texture = ExtResource("5_f6ds6")
+0:0/next_alternative_id = 6
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/terrains_peering_bit/right_side = 0
+0:0/0/terrains_peering_bit/left_side = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0/terrains_peering_bit/top_side = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0/terrains_peering_bit/right_side = 0
+2:0/0/terrains_peering_bit/top_side = 0
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/terrain = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0/terrains_peering_bit/left_side = 0
+3:0/0/terrains_peering_bit/top_side = 0
+4:0/0 = 0
+4:0/0/terrain_set = 0
+4:0/0/terrain = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:0/0/terrains_peering_bit/bottom_side = 0
+4:0/0/terrains_peering_bit/top_side = 0
+5:0/0 = 0
+5:0/0/terrain_set = 0
+5:0/0/terrain = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:0/0/terrains_peering_bit/right_side = 0
+6:0/0 = 0
+6:0/0/terrain_set = 0
+6:0/0/terrain = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:0/0/terrains_peering_bit/bottom_side = 0
+6:0/0/terrains_peering_bit/top_side = 0
+7:0/next_alternative_id = 2
+7:0/0 = 0
+7:0/0/terrain_set = 0
+7:0/0/terrain = 0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:0/0/terrains_peering_bit/left_side = 0
+7:0/1 = 1
+7:0/1/flip_v = true
+7:0/1/terrain_set = 0
+7:0/1/terrain = 0
+7:0/1/terrains_peering_bit/left_side = 0
+8:0/0 = 0
+8:0/0/terrain_set = 0
+8:0/0/terrain = 0
+8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+8:0/0/terrains_peering_bit/right_side = 0
+8:0/0/terrains_peering_bit/left_side = 0
+9:0/0 = 0
+9:0/0/terrain_set = 0
+9:0/0/terrain = 0
+9:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+9:0/0/terrains_peering_bit/bottom_side = 0
+10:0/0 = 0
+10:0/0/terrain_set = 0
+10:0/0/terrain = 0
+10:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+10:0/0/terrains_peering_bit/right_side = 0
+10:0/0/terrains_peering_bit/bottom_side = 0
+11:0/0 = 0
+11:0/0/terrain_set = 0
+11:0/0/terrain = 0
+11:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+11:0/0/terrains_peering_bit/bottom_side = 0
+11:0/0/terrains_peering_bit/left_side = 0
+
+[sub_resource type="TileSet" id="TileSet_5eqb7"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 3
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Metal"
+terrain_set_0/terrain_0/color = Color(0.656584, 0.113523, 0.461617, 1)
+sources/12 = SubResource("TileSetAtlasSource_j2ob4")
+tile_proxies/coords_level = [[0, Vector2i(0, 0)], [12, Vector2i(0, 0)], [1, Vector2i(0, 0)], [12, Vector2i(1, 0)], [2, Vector2i(0, 0)], [12, Vector2i(2, 0)], [3, Vector2i(0, 0)], [12, Vector2i(3, 0)], [4, Vector2i(0, 0)], [12, Vector2i(4, 0)], [5, Vector2i(0, 0)], [12, Vector2i(5, 0)], [6, Vector2i(0, 0)], [12, Vector2i(6, 0)], [7, Vector2i(0, 0)], [12, Vector2i(7, 0)], [8, Vector2i(0, 0)], [12, Vector2i(8, 0)], [9, Vector2i(0, 0)], [12, Vector2i(9, 0)], [10, Vector2i(0, 0)], [12, Vector2i(10, 0)], [11, Vector2i(0, 0)], [12, Vector2i(11, 0)]]
+
 [node name="Level 1" type="Node2D" node_paths=PackedStringArray("health_bar", "health_component")]
 script = ExtResource("1_jntnx")
 health_bar = NodePath("Player/Camera2D/MarginContainer/VBoxContainer/HBoxContainer/HealthBar")
@@ -51,29 +138,17 @@ texture = ExtResource("2_uq7g2")
 position = Vector2(-105.684, 16.8656)
 
 [node name="Sprite2D" parent="Player" index="0"]
-texture = ExtResource("4_ukg7l")
-frame = 0
+frame = 4
 
 [node name="HealthComponent" parent="Player" index="2"]
 MAX_HEALTH = 1
 
-[node name="CollisionShape2D" parent="Player/Hurtbox" index="0"]
-position = Vector2(-3.5076, -4.75974)
-scale = Vector2(2, 1)
-
-[node name="Legs" parent="Player/Hurtbox" index="1"]
-position = Vector2(-3.43928, 7.10377)
-scale = Vector2(2.5, 0.7)
-
 [node name="CollisionShape2D" parent="Player/Hitbox" index="0"]
-position = Vector2(-12.5949, 3.84179)
-scale = Vector2(1, 1.9)
+scale = Vector2(1e-05, 1e-05)
 
 [node name="AnimationTree" parent="Player" index="6"]
-parameters/AerialAttack/AerialAttack/AerialAttackBlend/blend_position = 0
 parameters/AerialAttack/AerialAttack/TimeScale/scale = 1.0
-parameters/AerialAttack/Falling/blend_position = 0
-parameters/AerialAttack/Jumping/blend_position = 0
+parameters/Falling/blend_position = 0
 parameters/Idle/TimeScale/scale = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -122,7 +197,7 @@ position = Vector2(-182.931, 33.4902)
 metadata/_edit_group_ = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(-1.4675, -104.767)
+position = Vector2(-2.41138, 22.1841)
 collision_layer = 3
 collision_mask = 3
 metadata/_edit_group_ = true
@@ -146,6 +221,10 @@ shape = SubResource("WorldBoundaryShape2D_q6rhk")
 color = Color(0.331966, 0.740367, 0.456413, 1)
 energy = 0.42
 blend_mode = 1
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD2/wMADAAAAAAAAAD3/wMADAAAAAAAAAD4/wMADAAAAAAAAAD5/wMADAAAAAAAAAD6/wMADAAAAAAAAAD7/wMADAAAAAAAAAD8/wMADAAAAAAAAAD1/wMADAAAAAAAAAD+/wMADAAAAAAAAAD9/wMADAAAAAAAAAD0/wMADAAFAAAAAAADAAMADAAHAAAAAAACAAMADAAAAAAAAAABAAMADAAAAAAAAAD//wMADAAAAAAAAAAAAAMADAAAAAAAAAD8//z/DAAFAAAAAAD9//z/DAAAAAAAAAD+//z/DAAAAAAAAAD///z/DAAHAAAAAAA=")
+tile_set = SubResource("TileSet_5eqb7")
 
 [editable path="Player"]
 [editable path="Player/Hurtbox"]

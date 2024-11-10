@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7gvbhev4uy0o"
-path="res://.godot/imported/jump.png-5507d946096bbba04a2cd20993f5c66c.ctex"
+uid="uid://d2kctba7le22e"
+path="res://.godot/imported/metal_tile_bottom_left_corner.png-6ba6280d43e7677c6f11b8e620cdde95.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/jump.png"
-dest_files=["res://.godot/imported/jump.png-5507d946096bbba04a2cd20993f5c66c.ctex"]
+source_file="res://assets/tiles/metal_tile_bottom_left_corner.png"
+dest_files=["res://.godot/imported/metal_tile_bottom_left_corner.png-6ba6280d43e7677c6f11b8e620cdde95.ctex"]
 
 [params]
 
