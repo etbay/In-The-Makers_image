@@ -15,17 +15,17 @@
 [ext_resource type="FontFile" uid="uid://bi0uafghueyks" path="res://assets/fonts/Pixelmax-Regular.otf" id="16_ghu2u"]
 [ext_resource type="PackedScene" uid="uid://beknuyb463m8o" path="res://scenes/killzone.tscn" id="17_4rc2q"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_46dax"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v4hg8"]
 texture = ExtResource("6_xi5wm")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ddsfm"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v3mpu"]
 texture = ExtResource("8_se7eg")
 
 [sub_resource type="Theme" id="Theme_gglo1"]
-ProgressBar/styles/background = SubResource("StyleBoxTexture_46dax")
-ProgressBar/styles/fill = SubResource("StyleBoxTexture_ddsfm")
+ProgressBar/styles/background = SubResource("StyleBoxTexture_v4hg8")
+ProgressBar/styles/fill = SubResource("StyleBoxTexture_v3mpu")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r7ndk"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_synva"]
 texture = ExtResource("11_b1ggh")
 0:0/size_in_atlas = Vector2i(4, 5)
 0:0/0 = 0
@@ -36,21 +36,21 @@ texture = ExtResource("11_b1ggh")
 0:11/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_5pe85"]
-sources/5 = SubResource("TileSetAtlasSource_r7ndk")
+sources/5 = SubResource("TileSetAtlasSource_synva")
 tile_proxies/coords_level = [[0, Vector2i(0, 0)], [5, Vector2i(0, 0)], [1, Vector2i(0, 0)], [5, Vector2i(0, 5)], [2, Vector2i(0, 0)], [5, Vector2i(0, 6)], [3, Vector2i(0, 0)], [5, Vector2i(0, 7)], [4, Vector2i(0, 0)], [5, Vector2i(0, 11)]]
 
-[sub_resource type="Gradient" id="Gradient_2kwq8"]
+[sub_resource type="Gradient" id="Gradient_e7sbh"]
 offsets = PackedFloat32Array(0, 0.628788)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_jtcne"]
-gradient = SubResource("Gradient_2kwq8")
+gradient = SubResource("Gradient_e7sbh")
 width = 239
 height = 214
 fill = 1
 fill_from = Vector2(0.491453, 0.495726)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3h576"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pumx4"]
 texture = ExtResource("14_y73b2")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -93,7 +93,7 @@ physics_layer_0/collision_mask = 3
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Metal"
 terrain_set_0/terrain_0/color = Color(0.656584, 0.113523, 0.461617, 1)
-sources/36 = SubResource("TileSetAtlasSource_3h576")
+sources/36 = SubResource("TileSetAtlasSource_pumx4")
 tile_proxies/coords_level = [[0, Vector2i(0, 0)], [3, Vector2i(0, 0)], [1, Vector2i(0, 0)], [18, Vector2i(0, 0)], [2, Vector2i(0, 0)], [18, Vector2i(1, 0)], [3, Vector2i(0, 0)], [0, Vector2i(0, 0)], [3, Vector2i(1, 0)], [0, Vector2i(1, 0)], [3, Vector2i(2, 0)], [0, Vector2i(2, 0)], [4, Vector2i(0, 0)], [18, Vector2i(2, 0)], [5, Vector2i(0, 0)], [12, Vector2i(5, 0)], [6, Vector2i(0, 0)], [18, Vector2i(3, 0)], [7, Vector2i(0, 0)], [18, Vector2i(4, 0)], [8, Vector2i(0, 0)], [18, Vector2i(5, 0)], [9, Vector2i(0, 0)], [18, Vector2i(6, 0)], [10, Vector2i(0, 0)], [18, Vector2i(7, 0)], [11, Vector2i(0, 0)], [18, Vector2i(8, 0)], [12, Vector2i(0, 0)], [18, Vector2i(9, 0)], [12, Vector2i(1, 0)], [0, Vector2i(1, 1)], [12, Vector2i(2, 0)], [0, Vector2i(2, 1)], [12, Vector2i(3, 0)], [0, Vector2i(3, 1)], [12, Vector2i(4, 0)], [0, Vector2i(4, 1)], [12, Vector2i(5, 0)], [0, Vector2i(5, 1)], [12, Vector2i(6, 0)], [0, Vector2i(6, 1)], [12, Vector2i(7, 0)], [0, Vector2i(7, 1)], [12, Vector2i(8, 0)], [0, Vector2i(8, 1)], [12, Vector2i(9, 0)], [0, Vector2i(9, 1)], [12, Vector2i(10, 0)], [0, Vector2i(10, 1)], [12, Vector2i(11, 0)], [0, Vector2i(11, 1)], [13, Vector2i(0, 0)], [18, Vector2i(10, 0)], [14, Vector2i(0, 0)], [18, Vector2i(11, 0)], [15, Vector2i(0, 0)], [18, Vector2i(12, 0)], [16, Vector2i(0, 0)], [18, Vector2i(13, 0)], [17, Vector2i(0, 0)], [18, Vector2i(14, 0)], [19, Vector2i(0, 0)], [36, Vector2i(0, 0)], [20, Vector2i(0, 0)], [36, Vector2i(1, 0)], [22, Vector2i(0, 0)], [36, Vector2i(2, 0)], [24, Vector2i(0, 0)], [36, Vector2i(3, 0)], [25, Vector2i(0, 0)], [36, Vector2i(4, 0)], [26, Vector2i(0, 0)], [36, Vector2i(5, 0)], [27, Vector2i(0, 0)], [36, Vector2i(6, 0)], [28, Vector2i(0, 0)], [36, Vector2i(7, 0)], [29, Vector2i(0, 0)], [36, Vector2i(8, 0)], [30, Vector2i(0, 0)], [36, Vector2i(9, 0)], [31, Vector2i(0, 0)], [36, Vector2i(10, 0)], [32, Vector2i(0, 0)], [36, Vector2i(11, 0)], [33, Vector2i(0, 0)], [36, Vector2i(12, 0)], [34, Vector2i(0, 0)], [36, Vector2i(13, 0)], [35, Vector2i(0, 0)], [36, Vector2i(14, 0)]]
 
 [node name="Level 1" type="Node2D" node_paths=PackedStringArray("health_bar", "health_component")]
@@ -316,7 +316,6 @@ metadata/_edit_group_ = true
 
 [node name="Sprite2D" parent="Player" index="0"]
 hframes = 5
-frame = 2
 
 [node name="CollisionShape2D" parent="Player/Hurtbox" index="0"]
 position = Vector2(-0.0313795, -10.7016)
