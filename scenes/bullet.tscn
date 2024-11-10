@@ -31,6 +31,18 @@ scale = Vector2(0.893934, 0.717157)
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(0, 7.745)
 
+[node name="RayCast2D2" type="RayCast2D" parent="."]
+rotation = 1.5708
+target_position = Vector2(0, 7.745)
+
+[node name="RayCast2D3" type="RayCast2D" parent="."]
+rotation = -1.5708
+target_position = Vector2(0, 7.745)
+
+[node name="RayCast2D4" type="RayCast2D" parent="."]
+rotation = 3.14159
+target_position = Vector2(0, 7.745)
+
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_screen_exited"]

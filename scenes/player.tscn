@@ -1,4 +1,4 @@
-[gd_scene load_steps=171 format=3 uid="uid://docergpbnrtt7"]
+[gd_scene load_steps=172 format=3 uid="uid://docergpbnrtt7"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_bt2jc"]
 [ext_resource type="Texture2D" uid="uid://dpvt3oebvvl27" path="res://assets/player/death.png" id="2_1tqtk"]
@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://cot4w7vuqtw1x" path="res://assets/sfx/attack.mp3" id="14_r52xs"]
 [ext_resource type="AudioStream" uid="uid://b60bsrt2jqx03" path="res://assets/sfx/aerial_attack.mp3" id="14_x0yyd"]
 [ext_resource type="AudioStream" uid="uid://8q73jph6ybe2" path="res://assets/sfx/footsteps.mp3" id="14_yy77j"]
+[ext_resource type="AudioStream" uid="uid://cie7ifyedpyg1" path="res://assets/sfx/death_screen.mp3" id="16_4qvgw"]
 [ext_resource type="AudioStream" uid="uid://mdric5qvbyda" path="res://assets/sfx/Land.mp3" id="18_nxkyo"]
 [ext_resource type="AudioStream" uid="uid://cnos3w350vb77" path="res://assets/sfx/uppercut.mp3" id="18_x5xla"]
 [ext_resource type="AudioStream" uid="uid://cqb61u8rhjlh5" path="res://assets/sfx/Dash.mp3" id="20_4o8i5"]
@@ -3359,6 +3360,21 @@ tracks/16/keys = {
 "values": [Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_bce0o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_r3am1")]
+}
+
 [sub_resource type="Animation" id="Animation_0mqlf"]
 resource_name = "StartEndJumpLeft"
 length = 0.1
@@ -5031,21 +5047,6 @@ tracks/16/keys = {
 "values": [Vector2(0, -19)]
 }
 
-[sub_resource type="Animation" id="Animation_bce0o"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_r3am1")]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jwj6o"]
 _data = {
 "AerialAttackLeft": SubResource("Animation_6ouis"),
@@ -5207,7 +5208,7 @@ blend_point_1/pos = 1.0
 blend_mode = 1
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_yki4f"]
-graph_offset = Vector2(-386, 15)
+graph_offset = Vector2(-261, 23)
 nodes/DeathBlend/node = SubResource("AnimationNodeBlendSpace1D_30vnj")
 nodes/DeathBlend/position = Vector2(-80, 100)
 node_connections = [&"output", 0, &"DeathBlend"]
@@ -5631,7 +5632,7 @@ states/Start/position = Vector2(498, 278)
 states/UppercutAttack/node = SubResource("AnimationNodeStateMachine_adgbm")
 states/UppercutAttack/position = Vector2(486, -33)
 transitions = ["Moving", "Dash", SubResource("AnimationNodeStateMachineTransition_onoo7"), "Dash", "Moving", SubResource("AnimationNodeStateMachineTransition_ifosw"), "Moving", "Jump", SubResource("AnimationNodeStateMachineTransition_02qwd"), "Jump", "Moving", SubResource("AnimationNodeStateMachineTransition_wthff"), "Dash", "Jump", SubResource("AnimationNodeStateMachineTransition_l66ib"), "Moving", "BasicAttack", SubResource("AnimationNodeStateMachineTransition_6cdqc"), "BasicAttack", "Moving", SubResource("AnimationNodeStateMachineTransition_3lfk7"), "UppercutAttack", "Moving", SubResource("AnimationNodeStateMachineTransition_nqkgn"), "Dash", "UppercutAttack", SubResource("AnimationNodeStateMachineTransition_3luq1"), "Jump", "Death", SubResource("AnimationNodeStateMachineTransition_ok70w"), "Dash", "Death", SubResource("AnimationNodeStateMachineTransition_rofnb"), "Moving", "Death", SubResource("AnimationNodeStateMachineTransition_48dme"), "UppercutAttack", "Death", SubResource("AnimationNodeStateMachineTransition_om3c7"), "BasicAttack", "Death", SubResource("AnimationNodeStateMachineTransition_yrocm"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_sir7g"), "Idle", "BasicAttack", SubResource("AnimationNodeStateMachineTransition_6br61"), "BasicAttack", "Idle", SubResource("AnimationNodeStateMachineTransition_yi6uu"), "Idle", "UppercutAttack", SubResource("AnimationNodeStateMachineTransition_im0pv"), "UppercutAttack", "Idle", SubResource("AnimationNodeStateMachineTransition_xwynj"), "Idle", "Moving", SubResource("AnimationNodeStateMachineTransition_3ncrq"), "Moving", "Idle", SubResource("AnimationNodeStateMachineTransition_6j4hi"), "Dash", "Idle", SubResource("AnimationNodeStateMachineTransition_fyvte"), "Idle", "Dash", SubResource("AnimationNodeStateMachineTransition_mopsy"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_7pqy7"), "Jump", "Idle", SubResource("AnimationNodeStateMachineTransition_gajpl"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_yj8tp"), "Jump", "Dash", SubResource("AnimationNodeStateMachineTransition_0l6fk"), "Moving", "UppercutAttack", SubResource("AnimationNodeStateMachineTransition_p5xmm"), "Jump", "AerialAttack", SubResource("AnimationNodeStateMachineTransition_o6gx6"), "AerialAttack", "Jump", SubResource("AnimationNodeStateMachineTransition_us080"), "AerialAttack", "Dash", SubResource("AnimationNodeStateMachineTransition_p1nwh"), "Moving", "Falling", SubResource("AnimationNodeStateMachineTransition_natdb"), "Idle", "Falling", SubResource("AnimationNodeStateMachineTransition_samh5"), "Falling", "Idle", SubResource("AnimationNodeStateMachineTransition_5jdpb"), "Falling", "Moving", SubResource("AnimationNodeStateMachineTransition_hwo6m"), "Falling", "Dash", SubResource("AnimationNodeStateMachineTransition_f8xsc"), "Falling", "BasicAttack", SubResource("AnimationNodeStateMachineTransition_1ghkr"), "BasicAttack", "Falling", SubResource("AnimationNodeStateMachineTransition_mxw26"), "AerialAttack", "BasicAttack", SubResource("AnimationNodeStateMachineTransition_m5l7m"), "AerialAttack", "UppercutAttack", SubResource("AnimationNodeStateMachineTransition_mnmg3"), "Jump", "BasicAttack", SubResource("AnimationNodeStateMachineTransition_xc0a6")]
-graph_offset = Vector2(-239, -115)
+graph_offset = Vector2(-638, -301)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_bt2jc")
@@ -5639,8 +5640,9 @@ script = ExtResource("1_bt2jc")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 2)
 texture = ExtResource("2_r3am1")
-flip_h = true
-hframes = 5
+offset = Vector2(0, -16)
+hframes = 24
+frame = 23
 
 [node name="PhysicsHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0.943878, 7.7079)
@@ -5655,23 +5657,27 @@ collision_mask = 16
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(-0.0313795, -10.7016)
-scale = Vector2(1, 0.3)
+position = Vector2(2.40972, 3.55121)
+rotation = 0.792379
 shape = SubResource("CapsuleShape2D_5p1mr")
+disabled = true
 
 [node name="Legs" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(-0.384452, 4.58309)
-scale = Vector2(2, 1.4)
+position = Vector2(-2.19559, 12.3789)
+rotation = -2.02807
+scale = Vector2(0.9, 0.7)
 shape = SubResource("CapsuleShape2D_dice2")
+disabled = true
 
 [node name="Hitbox" parent="." instance=ExtResource("4_b3pke")]
 collision_layer = 4
 collision_mask = 32
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
-position = Vector2(8.53344, 7.41043)
-scale = Vector2(1e-05, 1e-05)
+position = Vector2(-14.4209, 8.64257)
+rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ua2tl")
+disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimationTree")
@@ -5691,7 +5697,7 @@ parameters/AerialAttack/Jumping/blend_position = 0
 parameters/BasicAttack/BasicAttackBlend/blend_position = 0.0
 parameters/Dash/DashBlend/blend_position = 0.0
 parameters/Dash/TimeScale/scale = 1.0
-parameters/Death/DeathBlend/blend_position = 0
+parameters/Death/DeathBlend/blend_position = 0.134301
 parameters/Falling/blend_position = 0
 parameters/Idle/IdleBlend/blend_position = 0
 parameters/Idle/TimeScale/scale = 0.4
@@ -5744,6 +5750,9 @@ stream = ExtResource("14_ebw56")
 [node name="FootstepSound" type="AudioStreamPlayer2D" parent="Audio"]
 stream = ExtResource("14_yy77j")
 volume_db = -17.802
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("16_4qvgw")
 
 [node name="AerialAttackSound" type="AudioStreamPlayer2D" parent="Audio"]
 stream = ExtResource("14_x0yyd")

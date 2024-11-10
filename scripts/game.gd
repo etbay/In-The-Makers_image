@@ -9,6 +9,7 @@ func _ready():
 		health_component.health_bar = health_bar
 	else:
 		print("HealthComponent or HealthBar is not connected to root level node")
+	AudioServer.set_bus_mute(1, false)
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("exit"):

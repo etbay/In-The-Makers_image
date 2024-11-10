@@ -20,6 +20,7 @@ class_name Player
 @onready var landing_sound: AudioStreamPlayer2D = $Audio/LandingSound
 @onready var jump_sound: AudioStreamPlayer2D = $Audio/JumpSound
 @onready var dash_sound: AudioStreamPlayer2D = $Audio/DashSound
+@onready var death_sound: AudioStreamPlayer2D = $Audio/DeathSound
 
 const BASE_SPEED := 150.0
 const RUN_SPEED := 250.0
@@ -205,6 +206,8 @@ func dead_state(delta):
 	velocity.x = move_toward(velocity.x, 0, friction)
 	move_and_slide()
 	if death_timer.is_stopped():
+		death_sound.play()
+		AudioServer.set_bus_mute(1, true)
 		death_timer.start()
 
 func detect_attack_type():
