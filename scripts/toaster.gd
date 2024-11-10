@@ -13,7 +13,7 @@ const BASE_SPEED = 40
 @export var speed = 40
 @export var acceleration = 30
 var friction = 20
-@export var knockback = 100
+@export var knockback = 400
 var being_attacked = false
 var moving = true
 var on_screen = false
@@ -69,6 +69,8 @@ func _on_health_component_damaged() -> void:
 	speed += 50
 	if player.dashing or player.uppercutting:
 		velocity.y = -300
+	else:
+		velocity.y = -100
 	velocity.x = player.last_facing_direction.x * knockback
 
 func _on_shoot_time_timeout() -> void:
