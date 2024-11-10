@@ -285,7 +285,7 @@ theme_override_font_sizes/font_size = 32
 text = "Click"
 
 [node name="Player" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("1_fk7hs")]
-position = Vector2(503.075, 275.548)
+position = Vector2(525.075, 234.548)
 tilemap = NodePath("../TileMapLayer")
 metadata/_edit_group_ = true
 
