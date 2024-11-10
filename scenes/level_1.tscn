@@ -316,7 +316,7 @@ metadata/_edit_group_ = true
 
 [node name="Sprite2D" parent="Player" index="0"]
 hframes = 5
-frame = 3
+frame = 2
 
 [node name="CollisionShape2D" parent="Player/Hurtbox" index="0"]
 position = Vector2(-0.0313795, -10.7016)
