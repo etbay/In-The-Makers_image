@@ -3,7 +3,7 @@ extends Node2D
 var direction : Vector2 = Vector2.RIGHT
 var speed := 300.0
 var velocity = Vector2.ZERO
-var gravity = 200
+var gravity = 980
 
 var rand = RandomNumberGenerator.new()
 
@@ -11,7 +11,7 @@ func _ready():
 	var player = get_parent().find_child("Player")
 	var start_pos = global_position
 	var target_pos = player.global_position
-	var time_to_target = 1.2
+	var time_to_target = 1.0
 	
 	target_pos.x += rand.randi_range(-30, 30)
 	

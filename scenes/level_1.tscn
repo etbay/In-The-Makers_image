@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=4 uid="uid://c4o2c3alm8aee"]
+[gd_scene load_steps=20 format=4 uid="uid://c4o2c3alm8aee"]
 
 [ext_resource type="PackedScene" uid="uid://docergpbnrtt7" path="res://scenes/player.tscn" id="1_fk7hs"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_jntnx"]
 [ext_resource type="PackedScene" uid="uid://c63ujwnqgimxp" path="res://scenes/health_pickup.tscn" id="1_mofkx"]
 [ext_resource type="Texture2D" uid="uid://c8v4q27f1utix" path="res://assets/desolate_world_background.png" id="2_uq7g2"]
 [ext_resource type="Texture2D" uid="uid://g17eb3vy1wo1" path="res://assets/head_icon.png" id="4_dvfdq"]
+[ext_resource type="Texture2D" uid="uid://ck2chdcai4kfe" path="res://assets/player/idle.png" id="4_gl36g"]
 [ext_resource type="Texture2D" uid="uid://dci3howjxtqww" path="res://assets/player_healthbar_full.png" id="5_4ovo1"]
 [ext_resource type="Texture2D" uid="uid://dr2c06j56gact" path="res://assets/tiles/metal_tiles.png" id="5_f6ds6"]
 [ext_resource type="Texture2D" uid="uid://djqj6d1el7xh8" path="res://assets/player_healthbar_frame.png" id="5_laoh2"]
@@ -136,7 +137,7 @@ repeat_times = 12
 screen_offset = Vector2(5, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
-scale = Vector2(2, 2)
+scale = Vector2(3, 3)
 texture = ExtResource("2_uq7g2")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -215,7 +216,21 @@ position = Vector2(449.609, 237.973)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" parent="Player" index="0"]
-frame = 2
+texture = ExtResource("4_gl36g")
+hframes = 5
+frame = 1
+
+[node name="CollisionShape2D" parent="Player/Hurtbox" index="0"]
+position = Vector2(-0.0313795, -10.7016)
+scale = Vector2(1, 0.3)
+
+[node name="Legs" parent="Player/Hurtbox" index="1"]
+position = Vector2(-0.384452, 4.58309)
+scale = Vector2(2, 1.4)
+
+[node name="CollisionShape2D" parent="Player/Hitbox" index="0"]
+position = Vector2(8.53344, 7.41043)
+scale = Vector2(1e-05, 1e-05)
 
 [node name="AnimationTree" parent="Player" index="6"]
 parameters/AerialAttack/AerialAttack/TimeScale/scale = 1.0
@@ -223,7 +238,7 @@ parameters/Idle/TimeScale/scale = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -30)
-zoom = Vector2(3, 3)
+zoom = Vector2(2, 2)
 
 [node name="PointLight2D" type="PointLight2D" parent="Player"]
 position = Vector2(0.137779, -9.1276)
@@ -253,11 +268,12 @@ blend_mode = 1
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(500, 250)
-tile_map_data = PackedByteArray("AAD2/wMADAAAAAAAAAD3/wMADAAAAAAAAAD4/wMADAAAAAAAAAD5/wMADAAAAAAAAAD6/wMADAAAAAAAAAD7/wMADAAAAAAAAAD8/wMADAAAAAAAAAD1/wMADAAAAAAAAAD+/wMADAAAAAAAAAD9/wMADAAAAAAAAAD0/wMADAAAAAAAAAADAAMADAAAAAAAAAACAAMADAAAAAAAAAABAAMADAAAAAAAAAD//wMADAAAAAAAAAAAAAMADAAAAAAAAAD8//z/DAAFAAAAAAD9//z/DAAAAAAAAAD+//z/DAAAAAAAAAD///z/DAAHAAAAAAAEAAMADAAAAAAAAAAFAAMADAAAAAAAAAAGAAMADAAAAAAAAAAHAAMADAAAAAAAAAAIAAMADAAAAAAAAAAJAAMADAAAAAAAAAAKAAMADAAAAAAAAAALAAMADAAHAAAAAADz/wMADAAAAAAAAADy/wMADAAAAAAAAADx/wMADAAAAAAAAADw/wMADAAAAAAAAADv/wMADAAAAAAAAADu/wMADAAAAAAAAADt/wMADAAAAAAAAADs/wMADAAAAAAAAADr/wMADAAAAAAAAADq/wMADAAAAAAAAADp/wMADAAAAAAAAADo/wMADAAAAAAAAADn/wMADAAFAAAAAAA=")
+tile_map_data = PackedByteArray("AAD2/wMADAAAAAAAAAD3/wMADAAAAAAAAAD4/wMADAAAAAAAAAD5/wMADAAAAAAAAAD6/wMADAAAAAAAAAD7/wMADAAAAAAAAAD8/wMADAAAAAAAAAD1/wMADAAAAAAAAAD+/wMADAAAAAAAAAD9/wMADAAAAAAAAAD0/wMADAAAAAAAAAADAAMADAAAAAAAAAACAAMADAAAAAAAAAABAAMADAAAAAAAAAD//wMADAAAAAAAAAAAAAMADAAAAAAAAAD8//z/DAAFAAAAAAD9//z/DAAAAAAAAAD+//z/DAAAAAAAAAD///z/DAAHAAAAAAAEAAMADAAAAAAAAAAFAAMADAAAAAAAAAAGAAMADAAAAAAAAAAHAAMADAAAAAAAAAAIAAMADAAAAAAAAAAJAAMADAAAAAAAAAAKAAMADAAAAAAAAAALAAMADAAHAAAAAADz/wMADAAAAAAAAADy/wMADAAAAAAAAADx/wMADAAAAAAAAADw/wMADAAAAAAAAADv/wMADAAAAAAAAADu/wMADAAAAAAAAADt/wMADAAAAAAAAADs/wMADAAAAAAAAADr/wMADAAAAAAAAADq/wMADAAAAAAAAADp/wMADAAAAAAAAADo/wMADAAAAAAAAADn/wMADAAAAAAAAADm/wMADAAAAAAAAADl/wMADAAAAAAAAADk/wMADAAIAAAAAADj/wMADAAIAAAAAADi/wMADAAAAAAAAADh/wMADAAIAAAAAADg/wMADAAAAAAAAADf/wMADAAIAAAAAADe/wMADAAIAAAAAADd/wMADAAAAAAAAADc/wMADAAAAAAAAADb/wMADAAIAAAAAADa/wMADAAAAAAAAADZ/wMADAAIAAAAAADY/wMADAAAAAAAAADX/wMADAAAAAAAAADW/wMADAAAAAAAAADV/wMADAAAAAAAAADU/wMADAAIAAAAAADS/wMADAAAAAAAAADT/wMADAAAAAAAAADR/wMADAAAAAAAAADQ/wMADAAIAAAAAADP/wMADAAAAAAAAADO/wMADAAIAAAAAADN/wMADAAIAAAAAADM/wMADAAAAAAAAADL/wMADAAAAAAAAADK/wMADAAAAAAAAADJ/wMADAAAAAAAAADI/wMADAAIAAAAAADH/wMADAAAAAAAAADG/wMADAAFAAAAAAA=")
 tile_set = SubResource("TileSet_5eqb7")
 
 [node name="Toaster" parent="." instance=ExtResource("6_ikpnj")]
 position = Vector2(218.262, 274.047)
+speed = 80
 knockback = 400
 metadata/_edit_group_ = true
 

@@ -1,43 +1,52 @@
 extends CharacterBody2D
 
 @onready var ray_cast: RayCast2D = $RayCast2D
-@onready var timer: Timer = $Timer
+@onready var move_time: Timer = $MoveTime
 @export var ammo : PackedScene
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var damaged_length: Timer = $DamagedLength
+@onready var shoot_time: Timer = $ShootTime
+@onready var move_to_player: Timer = $MoveToPlayer
+const BASE_SPEED = 40
 
 @export var speed = 40
-@export var acceleration = 20
+@export var acceleration = 30
 var friction = 20
-@export var knockback = 40
+@export var knockback = 100
 var being_attacked = false
+var moving = true
+var on_screen = false
+var active = false
 
-var player : CharacterBody2D
+var player : Player
 
 func _ready():
 	player = get_parent().find_child("Player")
+	move_time.start()
 
 func _physics_process(delta: float) -> void:
-	aim()
-	check_player_collision()
-	#print(health_component.health)
-	velocity += get_gravity() * 0.5 * delta
-	#if damaged_length.is_stopped():
-		#velocity.x = move_toward(0, ray_cast.target_position.normalized().x * speed, acceleration)
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, friction)
-	move_and_slide()
+	#print(not move_time.is_stopped())
+	#print(not shoot_time.is_stopped())
+	if active:
+		aim()
+		velocity.y += get_gravity().y * 0.5 * delta
+		var dir = -1
+		if not move_to_player.is_stopped():
+			dir = 1
+		if damaged_length.is_stopped():
+			if not move_time.is_stopped():
+				velocity.x = move_toward(velocity.x, ray_cast.target_position.normalized().x * speed * dir, acceleration)
+			elif not shoot_time.is_stopped():
+				velocity.x = move_toward(velocity.x, 0, friction)
+		else:
+			move_time.stop()
+			shoot_time.stop()
+			velocity.x = move_toward(velocity.x, 0, friction)
+		move_and_slide()
 
 func aim():
 	if is_instance_valid(player):
 		ray_cast.target_position = to_local(player.position)
-
-func check_player_collision():
-	if player:
-		if ray_cast.get_collider() == player and timer.is_stopped():
-			timer.start()
-		elif ray_cast.get_collider() != player and not timer.is_stopped():
-			timer.stop()
 
 func shoot():
 	if is_on_floor() and is_instance_valid(player):
@@ -50,13 +59,27 @@ func shoot():
 		get_tree().current_scene.add_child(bullet1)
 		get_tree().current_scene.add_child(bullet2)
 
-func _on_timer_timeout() -> void:
-	shoot()
-
 func _on_health_component_damaged() -> void:
 	damaged_length.start()
-	if not player.dash_timeout.is_stopped() or player.uppercutting == true:
+	move_to_player.stop()
+	speed += 50
+	if player.dashing or player.uppercutting:
 		velocity.y = -300
-		velocity.x = player.last_facing_direction.x * knockback
-	else:
-		velocity.x = player.last_facing_direction.x * knockback
+	velocity.x = player.last_facing_direction.x * knockback
+
+func _on_shoot_time_timeout() -> void:
+	shoot()
+	move_time.start()
+
+func _on_move_time_timeout() -> void:
+	speed = BASE_SPEED
+	shoot_time.start()
+
+func _on_damaged_length_timeout() -> void:
+	move_time.start()
+
+func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
+	active = true
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	move_to_player.start()

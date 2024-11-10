@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://x3oj5neqd3n3"]
+[gd_scene load_steps=35 format=3 uid="uid://x3oj5neqd3n3"]
 
 [ext_resource type="Script" path="res://scripts/toaster.gd" id="1_texhx"]
 [ext_resource type="PackedScene" uid="uid://dwp5lfo58lxea" path="res://scenes/bullet.tscn" id="2_gj7jo"]
@@ -1230,26 +1230,6 @@ node_connections = [&"TimeScale", 0, &"MoveBlend", &"output", 0, &"TimeScale"]
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6m8qb"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c1r63"]
-advance_mode = 2
-advance_expression = "move_time.is_stopped()"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_67uby"]
-advance_mode = 2
-advance_expression = "shoot_time.is_stopped()"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p1dqm"]
-advance_mode = 2
-advance_expression = "not damaged_length.is_stopped()"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_31ioo"]
-advance_mode = 2
-advance_expression = "not damaged_length.is_stopped()"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f80hs"]
-advance_mode = 2
-advance_expression = "damaged_length.is_stopped()"
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3ts0e"]
 states/Attack/node = SubResource("AnimationNodeBlendTree_bd05d")
 states/Attack/position = Vector2(521, 70)
@@ -1258,8 +1238,8 @@ states/Damaged/position = Vector2(350, -44)
 states/Move/node = SubResource("AnimationNodeBlendTree_e368e")
 states/Move/position = Vector2(232, 70)
 states/Start/position = Vector2(343, 186)
-transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_6m8qb"), "Move", "Attack", SubResource("AnimationNodeStateMachineTransition_c1r63"), "Attack", "Move", SubResource("AnimationNodeStateMachineTransition_67uby"), "Move", "Damaged", SubResource("AnimationNodeStateMachineTransition_p1dqm"), "Attack", "Damaged", SubResource("AnimationNodeStateMachineTransition_31ioo"), "Damaged", "Move", SubResource("AnimationNodeStateMachineTransition_f80hs")]
-graph_offset = Vector2(-176, -87)
+transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_6m8qb")]
+graph_offset = Vector2(-190, -85)
 
 [node name="Toaster" type="CharacterBody2D"]
 collision_layer = 2
@@ -1308,7 +1288,7 @@ position = Vector2(-2.78551, 5.33315)
 shape = SubResource("RectangleShape2D_t6oc5")
 
 [node name="DamagedLength" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.8
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -1336,7 +1316,6 @@ one_shot = true
 [connection signal="timeout" from="ShootTime" to="." method="_on_shoot_time_timeout"]
 [connection signal="timeout" from="MoveTime" to="." method="_on_move_time_timeout"]
 [connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
-[connection signal="timeout" from="DamagedLength" to="." method="_on_damaged_length_timeout"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 
