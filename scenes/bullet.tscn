@@ -11,7 +11,7 @@ size = Vector2(11.2253, 9.19239)
 script = ExtResource("1_urxp7")
 
 [node name="Hitbox" parent="." instance=ExtResource("2_k7nos")]
-collision_layer = 16
+collision_layer = 18
 collision_mask = 8
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
@@ -25,9 +25,14 @@ hframes = 7
 frame = 6
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-visible = false
+position = Vector2(-1.06066, 2.82843)
+scale = Vector2(0.893934, 0.717157)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 7.745)
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_screen_exited"]
 
 [editable path="Hitbox"]

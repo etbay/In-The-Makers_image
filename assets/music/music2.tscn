@@ -2,7 +2,7 @@
 
 [ext_resource type="AudioStream" uid="uid://cbin7hnjn2jsv" path="res://assets/music/Crimson_Jam_2024.mp3" id="1_w61n1"]
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D"]
+[node name="Music" type="AudioStreamPlayer2D"]
 stream = ExtResource("1_w61n1")
 autoplay = true
 parameters/looping = true

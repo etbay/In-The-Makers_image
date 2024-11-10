@@ -1479,6 +1479,7 @@ one_shot = true
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_282ws")]
 player = NodePath("..")
+MAX_HEALTH = 3
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_gf5t5")]
 collision_layer = 32
@@ -1518,6 +1519,7 @@ one_shot = true
 [connection signal="timeout" from="ShootTime" to="." method="_on_shoot_time_timeout"]
 [connection signal="timeout" from="MoveTime" to="." method="_on_move_time_timeout"]
 [connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="timeout" from="DamagedLength" to="." method="_on_damaged_length_timeout"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,0 +1,207 @@
+[gd_scene load_steps=13 format=3 uid="uid://bnoha8i8h1fbl"]
+
+[ext_resource type="Texture2D" uid="uid://g17eb3vy1wo1" path="res://assets/head_icon.png" id="1_dvqry"]
+[ext_resource type="Script" path="res://scripts/health_bar.gd" id="1_u432m"]
+[ext_resource type="Texture2D" uid="uid://djqj6d1el7xh8" path="res://assets/player_healthbar_frame.png" id="2_ygyo6"]
+[ext_resource type="Texture2D" uid="uid://xrnn3agp4160" path="res://assets/player_healthbar_depleted_base.png" id="3_lv534"]
+[ext_resource type="Texture2D" uid="uid://dci3howjxtqww" path="res://assets/player_healthbar_full.png" id="4_mo7j7"]
+[ext_resource type="FontFile" uid="uid://bi0uafghueyks" path="res://assets/fonts/Pixelmax-Regular.otf" id="6_pnblh"]
+
+[sub_resource type="Animation" id="Animation_ewa6j"]
+resource_name = "Start"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hkrx0"]
+resource_name = "Death"
+length = 3.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ColorRect/MarginContainer2/Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ColorRect/MarginContainer2/Label:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../ColorRect:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(526, 262)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ohhth"]
+_data = {
+"Death": SubResource("Animation_hkrx0"),
+"Start": SubResource("Animation_ewa6j")
+}
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wcah1"]
+texture = ExtResource("3_lv534")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wihga"]
+texture = ExtResource("4_mo7j7")
+
+[sub_resource type="Theme" id="Theme_pyr7d"]
+ProgressBar/styles/background = SubResource("StyleBoxTexture_wcah1")
+ProgressBar/styles/fill = SubResource("StyleBoxTexture_wihga")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u432m")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../MarginContainer")
+libraries = {
+"": SubResource("AnimationLibrary_ohhth")
+}
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+offset_left = 12.1652
+offset_top = 9.51984
+offset_right = 27.1652
+offset_bottom = 25.5198
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("1_dvqry")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 9.76439
+offset_top = 8.81945
+offset_right = 709.764
+offset_bottom = 708.819
+metadata/_edit_group_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+texture = ExtResource("2_ygyo6")
+
+[node name="HealthBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/TextureRect"]
+custom_minimum_size = Vector2(50, 3)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -0.5
+offset_right = 0.5
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+theme = SubResource("Theme_pyr7d")
+step = 1.0
+show_percentage = false
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -104.0
+offset_top = -40.0
+offset_right = 422.0
+offset_bottom = 222.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_group_ = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ColorRect/MarginContainer2"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.392157, 0.156863, 0.141176, 1)
+theme_override_fonts/font = ExtResource("6_pnblh")
+theme_override_font_sizes/font_size = 32
+text = "YOU DIED"
+
+[node name="Death" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 352.0
+offset_bottom = 192.0
+
+[connection signal="timeout" from="Death" to="." method="_on_death_timeout"]

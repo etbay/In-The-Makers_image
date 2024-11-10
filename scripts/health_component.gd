@@ -31,8 +31,6 @@ func initialize_health_bar():
 	if health_bar:
 		health_bar.max_value = MAX_HEALTH
 		health_bar.value = health
-	else:
-		print("WHY THE FUCK NOT")
 
 func set_health_bar():
 	if health_bar:

@@ -87,3 +87,6 @@ func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	move_to_player.start()
+
+func _on_health_component_died() -> void:
+	self.queue_free()

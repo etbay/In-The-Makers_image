@@ -14,6 +14,10 @@ class_name Player
 @onready var footstep_sound: AudioStreamPlayer2D = $Audio/FootstepSound
 @onready var footstep_interval: Timer = $FootstepInterval
 @onready var pitch_timer: Timer = $PitchTimer
+@export var tilemap : TileMapLayer
+@onready var physics_hitbox: CollisionShape2D = $PhysicsHitbox
+@onready var death_timer: Timer = $DeathTimer
+@onready var landing_sound: AudioStreamPlayer2D = $Audio/LandingSound
 
 const BASE_SPEED := 150.0
 const RUN_SPEED := 250.0
@@ -74,7 +78,8 @@ func _physics_process(delta: float) -> void:
 	#print("dashing: " + str(dashing))
 	#print("jumping: " + str(jumping))
 	#
-	#print(attack_state)
+	#print(death_timer.time_left)
+	
 	# Performs state actions based on active state; state is changed in state functions
 	match state:
 		State.IDLE:
@@ -142,7 +147,6 @@ func walk_state(delta):
 		var rand_float = randf_range(-0.3,0.0)
 		footstep_interval.start()
 		footstep_sound.pitch_scale += rand_float
-		print(footstep_sound.pitch_scale)
 		footstep_sound.play()
 		pitch_timer.start()
 	walking = true
@@ -193,6 +197,8 @@ func dead_state(delta):
 	apply_gravity(delta)
 	velocity.x = move_toward(velocity.x, 0, friction)
 	move_and_slide()
+	if death_timer.is_stopped():
+		death_timer.start()
 
 func detect_attack_type():
 	if attacking.is_stopped():
@@ -250,6 +256,10 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "DeathRight" or anim_name == "DeathLeft":
 		print("dead")
 
+func on_killzoned():
+	physics_hitbox.disabled = true
+	death_timer.wait_time = 1.5
+	dead = true
 
 func _on_air_wait_timeout() -> void:
 	velocity.y = jump_velocity * 1.3
@@ -257,3 +267,7 @@ func _on_air_wait_timeout() -> void:
 
 func _on_pitch_timer_timeout() -> void:
 	footstep_sound.pitch_scale = 1.0
+
+
+func _on_death_timer_timeout() -> void:
+	get_tree().reload_current_scene()

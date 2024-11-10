@@ -1,9 +1,11 @@
 extends Node2D
 
+@onready var ray_cast: RayCast2D = $RayCast2D
+
 var direction : Vector2 = Vector2.RIGHT
 var speed := 300.0
 var velocity = Vector2.ZERO
-var gravity = 980
+var gravity = 240
 
 var rand = RandomNumberGenerator.new()
 
@@ -18,6 +20,8 @@ func _ready():
 	velocity = calculate_initial_velocity(start_pos, target_pos, gravity, time_to_target)
 
 func _physics_process(delta: float) -> void:
+	if ray_cast.is_colliding():
+		queue_free()
 	velocity.y += gravity * delta
 	position += velocity * delta
 
