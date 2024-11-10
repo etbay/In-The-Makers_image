@@ -5589,7 +5589,6 @@ transitions = ["Moving", "Dash", SubResource("AnimationNodeStateMachineTransitio
 graph_offset = Vector2(-527, -293)
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 3
 script = ExtResource("1_bt2jc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -5597,6 +5596,7 @@ position = Vector2(0, 2)
 texture = ExtResource("9_p8h3w")
 flip_h = true
 hframes = 5
+frame = 4
 
 [node name="PhysicsHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0.943878, 7.7079)
@@ -5621,7 +5621,6 @@ scale = Vector2(2, 1.4)
 shape = SubResource("CapsuleShape2D_dice2")
 
 [node name="Hitbox" parent="." instance=ExtResource("4_b3pke")]
-visible = false
 collision_layer = 4
 collision_mask = 32
 
