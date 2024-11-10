@@ -58,7 +58,7 @@ func _physics_process(delta: float) -> void:
 	#print("dashing: " + str(dashing))
 	#print("jumping: " + str(jumping))
 	
-	print(attack_state)
+	#print(attack_state)
 	
 	# Performs state actions based on active state; state is changed in state functions
 	match state:

@@ -1,13 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4o2c3alm8aee"]
+[gd_scene load_steps=9 format=3 uid="uid://c4o2c3alm8aee"]
 
 [ext_resource type="PackedScene" uid="uid://x3oj5neqd3n3" path="res://scenes/toaster.tscn" id="1_4ab5d"]
 [ext_resource type="PackedScene" uid="uid://docergpbnrtt7" path="res://scenes/player.tscn" id="1_fk7hs"]
 [ext_resource type="PackedScene" uid="uid://c63ujwnqgimxp" path="res://scenes/health_pickup.tscn" id="1_mofkx"]
+[ext_resource type="PackedScene" uid="uid://tr8stnwafdgs" path="res://scenes/timer_bomb_guy.tscn" id="4_hfws3"]
+[ext_resource type="PackedScene" uid="uid://ihthapsgnsmq" path="res://scenes/temp_platform.tscn" id="5_l7ng0"]
+[ext_resource type="PackedScene" uid="uid://bb2vq62ct6ufl" path="res://scenes/flipper.tscn" id="6_lxetw"]
+[ext_resource type="PackedScene" uid="uid://de588x5faof28" path="res://scenes/blender.tscn" id="7_pq5r8"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_q6rhk"]
 distance = -72.0
 
 [node name="Level 1" type="Node2D"]
+
+[node name="HealthPickup" parent="." instance=ExtResource("1_mofkx")]
+position = Vector2(-76.4675, 66.8781)
+metadata/_edit_group_ = true
+
+[node name="Toaster" parent="." instance=ExtResource("1_4ab5d")]
+position = Vector2(192.533, 61.8781)
+speed = 30
+acceleration = 30
+knockback = 400
+
+[node name="HealthComponent" parent="Toaster" index="5"]
+MAX_HEALTH = 20.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
@@ -42,19 +59,6 @@ size_flags_vertical = 4
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 
-[node name="HealthPickup" parent="." instance=ExtResource("1_mofkx")]
-position = Vector2(-76.4675, 66.8781)
-metadata/_edit_group_ = true
-
-[node name="Toaster" parent="." instance=ExtResource("1_4ab5d")]
-position = Vector2(65.5325, 61.8781)
-speed = 30
-acceleration = 30
-knockback = 400
-
-[node name="HealthComponent" parent="Toaster" index="5"]
-MAX_HEALTH = 20.0
-
 [node name="Player" parent="." instance=ExtResource("1_fk7hs")]
 position = Vector2(-19.4675, 64.8781)
 
@@ -78,6 +82,30 @@ metadata/_edit_group_ = true
 position = Vector2(3, 84)
 rotation = 3.14159
 shape = SubResource("WorldBoundaryShape2D_q6rhk")
+
+[node name="timerBombGuy" parent="." instance=ExtResource("4_hfws3")]
+position = Vector2(-194, -167)
+
+[node name="tempPlatform" parent="." instance=ExtResource("5_l7ng0")]
+position = Vector2(35, 51)
+
+[node name="tempPlatform2" parent="." instance=ExtResource("5_l7ng0")]
+position = Vector2(-37, 20)
+
+[node name="tempPlatform3" parent="." instance=ExtResource("5_l7ng0")]
+position = Vector2(-120, -7)
+
+[node name="tempPlatform4" parent="." instance=ExtResource("5_l7ng0")]
+position = Vector2(-486, 49)
+
+[node name="tempPlatform5" parent="." instance=ExtResource("5_l7ng0")]
+position = Vector2(-421, 32)
+
+[node name="flipper" parent="." instance=ExtResource("6_lxetw")]
+position = Vector2(104, 26)
+
+[node name="blender" parent="." instance=ExtResource("7_pq5r8")]
+position = Vector2(-247, -4)
 
 [editable path="Toaster"]
 [editable path="Toaster/Hitbox"]
