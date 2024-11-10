@@ -88,14 +88,18 @@ func _on_shoot_time_timeout() -> void:
 func _on_move_time_timeout() -> void:
 	speed = BASE_SPEED
 	shoot_time.start()
+	if active and is_on_floor() and on_screen:
+		attack_audio.play()
 
 func _on_damaged_length_timeout() -> void:
 	move_time.start()
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
+	on_screen = true
 	active = true
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	on_screen = false
 	move_to_player.start()
 
 func _on_health_component_died() -> void:
