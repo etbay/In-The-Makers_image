@@ -8,6 +8,10 @@ extends CharacterBody2D
 @onready var damaged_length: Timer = $DamagedLength
 @onready var shoot_time: Timer = $ShootTime
 @onready var move_to_player: Timer = $MoveToPlayer
+@onready var attack_audio: AudioStreamPlayer2D = $Audio/AttackAudio
+@onready var damaged_audio: AudioStreamPlayer2D = $Audio/DamagedAudio
+@onready var death_timer: Timer = $DeathTimer
+
 const BASE_SPEED = 40
 
 @export var speed = 40
@@ -18,6 +22,7 @@ var being_attacked = false
 var moving = true
 var on_screen = false
 var active = false
+var dead = false
 
 var player : Player
 
@@ -28,6 +33,8 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	#print(not move_time.is_stopped())
 	#print(not shoot_time.is_stopped())
+	if dead and death_timer.is_stopped():
+		self.queue_free()
 	if not detect_cliff.is_colliding() and damaged_length.is_stopped():
 		move_to_player.start()
 	
@@ -64,6 +71,7 @@ func shoot():
 		get_tree().current_scene.add_child(bullet2)
 
 func _on_health_component_damaged() -> void:
+	damaged_audio.play()
 	damaged_length.start()
 	move_to_player.stop()
 	speed += 50
@@ -91,4 +99,6 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	move_to_player.start()
 
 func _on_health_component_died() -> void:
-	self.queue_free()
+	dead = true
+	death_timer.start()
+	damaged_audio.play()

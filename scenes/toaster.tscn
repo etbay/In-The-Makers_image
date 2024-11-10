@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://x3oj5neqd3n3"]
+[gd_scene load_steps=44 format=3 uid="uid://x3oj5neqd3n3"]
 
 [ext_resource type="Script" path="res://scripts/toaster.gd" id="1_texhx"]
 [ext_resource type="PackedScene" uid="uid://dwp5lfo58lxea" path="res://scenes/bullet.tscn" id="2_gj7jo"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://p7rtwtkyoxl6" path="res://components/hitbox.tscn" id="4_c7l60"]
 [ext_resource type="PackedScene" uid="uid://daytajnd160e8" path="res://components/health_component.tscn" id="5_282ws"]
 [ext_resource type="PackedScene" uid="uid://dcd72ihkctsg4" path="res://components/hurtbox.tscn" id="6_gf5t5"]
+[ext_resource type="AudioStream" uid="uid://cr5gnx88oi2oj" path="res://assets/sfx/toaster_damaged.mp3" id="7_caagx"]
 [ext_resource type="Script" path="res://scripts/toaster_animation.gd" id="8_0ge2d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5qrvx"]
@@ -1490,8 +1491,20 @@ health_component = NodePath("../HealthComponent")
 position = Vector2(-2.78551, 5.33315)
 shape = SubResource("RectangleShape2D_t6oc5")
 
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="AttackAudio" type="AudioStreamPlayer2D" parent="Audio"]
+
+[node name="DamagedAudio" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("7_caagx")
+volume_db = -9.855
+
 [node name="DamagedLength" type="Timer" parent="."]
 wait_time = 0.5
+one_shot = true
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 0.2
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

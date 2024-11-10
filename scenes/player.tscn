@@ -5644,9 +5644,8 @@ script = ExtResource("1_bt2jc")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 2)
 texture = ExtResource("2_r3am1")
-offset = Vector2(0, -16)
-hframes = 24
-frame = 23
+flip_h = true
+hframes = 6
 
 [node name="PhysicsHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0.943878, 7.7079)
@@ -5661,27 +5660,22 @@ collision_mask = 16
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(2.40972, 3.55121)
-rotation = 0.792379
+position = Vector2(3.62787, -4.85692)
+scale = Vector2(2, 1)
 shape = SubResource("CapsuleShape2D_5p1mr")
-disabled = true
 
 [node name="Legs" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(-2.19559, 12.3789)
-rotation = -2.02807
-scale = Vector2(0.9, 0.7)
+position = Vector2(3.45501, 7.10377)
+scale = Vector2(2.5, 0.7)
 shape = SubResource("CapsuleShape2D_dice2")
-disabled = true
 
 [node name="Hitbox" parent="." instance=ExtResource("4_b3pke")]
 collision_layer = 4
 collision_mask = 32
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
-position = Vector2(-14.4209, 8.64257)
-rotation = 1.5708
+position = Vector2(12.408, 3.33636)
 shape = SubResource("CapsuleShape2D_ua2tl")
-disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimationTree")
