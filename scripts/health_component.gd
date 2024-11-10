@@ -40,4 +40,3 @@ func set_health_bar():
 
 func death():
 	died.emit()
-	player.queue_free()

@@ -35,6 +35,7 @@ var can_dash = true
 var dash_length_seconds := 0.1
 var dash_length_distance := 250.0
 
+var dead = false
 var uppercutting = false
 
 var state = State.IDLE
@@ -43,7 +44,8 @@ enum State
 	IDLE,
 	WALK,
 	JUMP,
-	DASH
+	DASH,
+	DEAD
 }
 
 var attack_state = State.IDLE
@@ -52,7 +54,7 @@ enum Attacks
 	IDLE,
 	UPPER,
 	AIR,
-	BASIC
+	BASIC,
 }
 
 func _physics_process(delta: float) -> void:
@@ -61,7 +63,7 @@ func _physics_process(delta: float) -> void:
 	#print("dashing: " + str(dashing))
 	#print("jumping: " + str(jumping))
 	#
-	#print(attack_state)
+	#print(uppercutting)
 	
 	# Performs state actions based on active state; state is changed in state functions
 	match state:
@@ -73,6 +75,8 @@ func _physics_process(delta: float) -> void:
 			jump_state(delta)
 		State.DASH:
 			dash_state(delta)
+		State.DEAD:
+			dead_state(delta)
 	
 	# Debugging function, left click to slow time
 	set_engine_time()
@@ -87,6 +91,9 @@ func set_engine_time():
 # Returns false if state is not changed
 # Return values used to update action variables (jumping, dashing, etc)
 func change_state() -> bool:
+	if dead:
+		state = State.DEAD
+		return true
 	if Input.is_action_just_pressed("jump") and (is_on_floor() or is_on_ceiling()) and not jumping:
 		state = State.JUMP
 		return true
@@ -99,7 +106,7 @@ func change_state() -> bool:
 	elif not direction.x and not idling and (is_on_floor() or is_on_ceiling()):
 		state = State.IDLE
 		return true
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") and attacking.is_stopped():
 		detect_attack_type()
 		if attack_state == Attacks.UPPER and is_on_floor() and not uppercutting:
 			upper_attack_state()
@@ -163,6 +170,10 @@ func dash_state(delta):
 		jumping = true
 		state = State.JUMP
 		dash_length_seconds = BASE_DASH_LENGTH_SECONDS
+func dead_state(delta):
+	apply_gravity(delta)
+	velocity.x = move_toward(velocity.x, 0, friction)
+	move_and_slide()
 
 func detect_attack_type():
 	if attacking.is_stopped():
@@ -203,3 +214,10 @@ func apply_horizontal_movement():
 
 func _on_dash_timeout_timeout() -> void:
 	can_dash = true
+
+func _on_health_component_died() -> void:
+	dead = true
+
+func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "DeathRight" or anim_name == "DeathLeft":
+		print("dead")

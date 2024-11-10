@@ -14,7 +14,8 @@ size = Vector2(10, 12.9887)
 radius = 5.0
 height = 20.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_myaba"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t6oc5"]
+size = Vector2(12, 19)
 
 [node name="Toaster" type="CharacterBody2D"]
 collision_layer = 2
@@ -50,13 +51,13 @@ wait_time = 2.0
 player = NodePath("..")
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_gf5t5")]
-visible = false
 collision_layer = 32
 collision_mask = 4
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-shape = SubResource("CircleShape2D_myaba")
+position = Vector2(0, -4.5)
+shape = SubResource("RectangleShape2D_t6oc5")
 
 [node name="DamagedLength" type="Timer" parent="."]
 wait_time = 0.8
