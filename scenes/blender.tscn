@@ -252,7 +252,7 @@ libraries = {
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_3gobp")]
 player = NodePath("..")
-MAX_HEALTH = 8.0
+MAX_HEALTH = 3
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_wc0sl")]
 collision_layer = 32
