@@ -51,10 +51,13 @@ func find_player():
 
 
 func _on_health_component_damaged():
-	print(player.last_facing_direction.x)
 	damageTimer.start()
 	if not player.dash_timeout.is_stopped():
 		velocity.y = -300
 		velocity.x = player.last_facing_direction.x * knockback
 	else:
 		velocity.x = player.last_facing_direction.x * knockback
+
+
+func _on_health_component_died() -> void:
+	self.queue_free()

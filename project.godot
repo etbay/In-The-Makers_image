@@ -11,12 +11,14 @@ config_version=5
 [application]
 
 config/name="Crimson Game Jam 2024"
-run/main_scene="res://scenes/level_1.tscn"
+run/main_scene="res://scenes/main_menu_level.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 
 [autoload]
 
 Music2="*res://assets/music/music2.tscn"
+Music1="*res://scenes/music_1.tscn"
+MainMenuMusic="*res://scenes/main_menu_music.tscn"
 
 [display]
 

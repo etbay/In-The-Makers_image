@@ -1,4 +1,4 @@
-[gd_scene load_steps=174 format=3 uid="uid://docergpbnrtt7"]
+[gd_scene load_steps=175 format=3 uid="uid://docergpbnrtt7"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_bt2jc"]
 [ext_resource type="Texture2D" uid="uid://dpvt3oebvvl27" path="res://assets/player/death.png" id="2_1tqtk"]
@@ -37,6 +37,8 @@ height = 18.1878
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ua2tl"]
 radius = 1.45578
 height = 19.1026
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eambo"]
 
 [sub_resource type="Animation" id="Animation_6ouis"]
 resource_name = "AerialAttackLeft"
@@ -5679,6 +5681,11 @@ collision_mask = 32
 position = Vector2(8.53344, 7.41043)
 scale = Vector2(1e-05, 1e-05)
 shape = SubResource("CapsuleShape2D_ua2tl")
+
+[node name="playerDetectbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerDetectbox"]
+shape = SubResource("CapsuleShape2D_eambo")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimationTree")

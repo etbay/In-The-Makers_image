@@ -1,16 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://tr8stnwafdgs"]
+[gd_scene load_steps=14 format=3 uid="uid://tr8stnwafdgs"]
 
 [ext_resource type="Script" path="res://scripts/timer_bomb_guy.gd" id="1_p87ll"]
 [ext_resource type="Texture2D" uid="uid://bulmv06nsm4j4" path="res://assets/timer_enemy.png" id="2_hheqv"]
 [ext_resource type="PackedScene" uid="uid://dcd72ihkctsg4" path="res://components/hurtbox.tscn" id="3_6pmwn"]
 [ext_resource type="Texture2D" uid="uid://dceistkxem33v" path="res://assets/explosio.png" id="4_agn12"]
+[ext_resource type="PackedScene" uid="uid://daytajnd160e8" path="res://components/health_component.tscn" id="4_iq6ts"]
 [ext_resource type="PackedScene" uid="uid://p7rtwtkyoxl6" path="res://components/hitbox.tscn" id="5_qtv70"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3m2ko"]
 size = Vector2(10, 11)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssdwg"]
-size = Vector2(10, 11)
+size = Vector2(22, 19)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5vt2y"]
 radius = 169.027
@@ -39,7 +40,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -110,9 +111,9 @@ position = Vector2(17, -15)
 collision_layer = 2
 collision_mask = 65
 script = ExtResource("1_p87ll")
+knockback = 4000
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("2_hheqv")
 hframes = 4
 
@@ -120,11 +121,14 @@ hframes = 4
 position = Vector2(-17, 8.5)
 shape = SubResource("RectangleShape2D_3m2ko")
 
-[node name="Hurtbox" parent="." instance=ExtResource("3_6pmwn")]
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_6pmwn")]
 position = Vector2(-18, 0)
+collision_layer = 32
+collision_mask = 4
+health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(1, 8.5)
+position = Vector2(1, 5)
 shape = SubResource("RectangleShape2D_ssdwg")
 
 [node name="playerDetection" type="Area2D" parent="."]
@@ -141,8 +145,11 @@ wait_time = 0.5
 one_shot = true
 
 [node name="timetilllaunch" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 2.0
 one_shot = true
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_iq6ts")]
+player = NodePath("..")
 
 [node name="pauseTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -172,6 +179,7 @@ shape = SubResource("CircleShape2D_vexs1")
 disabled = true
 
 [connection signal="area_entered" from="playerDetection" to="." method="_on_player_detection_area_entered"]
+[connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
 
 [editable path="Hurtbox"]
 [editable path="Hitbox"]

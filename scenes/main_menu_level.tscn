@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxp0pga6yvbg3"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_ccgob"]
+[ext_resource type="PackedScene" uid="uid://dm5fvhu5ahyk4" path="res://scenes/main_menu.tscn" id="2_muh80"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_ccgob")
+
+[node name="Main Menu" parent="." instance=ExtResource("2_muh80")]
+custom_minimum_size = Vector2(1152, 648)
+offset_right = 1152.0
+offset_bottom = 648.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_group_ = true
+
+[editable path="Main Menu"]
