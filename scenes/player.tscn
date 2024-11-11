@@ -1,4 +1,4 @@
-[gd_scene load_steps=176 format=3 uid="uid://docergpbnrtt7"]
+[gd_scene load_steps=177 format=3 uid="uid://docergpbnrtt7"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_bt2jc"]
 [ext_resource type="Texture2D" uid="uid://dpvt3oebvvl27" path="res://assets/player/death.png" id="2_1tqtk"]
@@ -5644,6 +5644,8 @@ states/UppercutAttack/position = Vector2(435, -19)
 transitions = ["Moving", "Dash", SubResource("AnimationNodeStateMachineTransition_onoo7"), "Dash", "Moving", SubResource("AnimationNodeStateMachineTransition_ifosw"), "Moving", "Jump", SubResource("AnimationNodeStateMachineTransition_02qwd"), "Jump", "Moving", SubResource("AnimationNodeStateMachineTransition_wthff"), "Dash", "Jump", SubResource("AnimationNodeStateMachineTransition_l66ib"), "Moving", "BasicAttack", SubResource("AnimationNodeStateMachineTransition_6cdqc"), "BasicAttack", "Moving", SubResource("AnimationNodeStateMachineTransition_3lfk7"), "UppercutAttack", "Moving", SubResource("AnimationNodeStateMachineTransition_nqkgn"), "Dash", "UppercutAttack", SubResource("AnimationNodeStateMachineTransition_3luq1"), "Jump", "Death", SubResource("AnimationNodeStateMachineTransition_ok70w"), "Dash", "Death", SubResource("AnimationNodeStateMachineTransition_rofnb"), "Moving", "Death", SubResource("AnimationNodeStateMachineTransition_48dme"), "UppercutAttack", "Death", SubResource("AnimationNodeStateMachineTransition_om3c7"), "BasicAttack", "Death", SubResource("AnimationNodeStateMachineTransition_yrocm"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_sir7g"), "Idle", "BasicAttack", SubResource("AnimationNodeStateMachineTransition_6br61"), "BasicAttack", "Idle", SubResource("AnimationNodeStateMachineTransition_yi6uu"), "Idle", "UppercutAttack", SubResource("AnimationNodeStateMachineTransition_im0pv"), "UppercutAttack", "Idle", SubResource("AnimationNodeStateMachineTransition_xwynj"), "Idle", "Moving", SubResource("AnimationNodeStateMachineTransition_3ncrq"), "Moving", "Idle", SubResource("AnimationNodeStateMachineTransition_6j4hi"), "Dash", "Idle", SubResource("AnimationNodeStateMachineTransition_fyvte"), "Idle", "Dash", SubResource("AnimationNodeStateMachineTransition_mopsy"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_7pqy7"), "Jump", "Idle", SubResource("AnimationNodeStateMachineTransition_gajpl"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_yj8tp"), "Jump", "Dash", SubResource("AnimationNodeStateMachineTransition_0l6fk"), "Moving", "UppercutAttack", SubResource("AnimationNodeStateMachineTransition_p5xmm"), "Jump", "AerialAttack", SubResource("AnimationNodeStateMachineTransition_o6gx6"), "AerialAttack", "Jump", SubResource("AnimationNodeStateMachineTransition_us080"), "AerialAttack", "Dash", SubResource("AnimationNodeStateMachineTransition_p1nwh"), "Moving", "Falling", SubResource("AnimationNodeStateMachineTransition_natdb"), "Idle", "Falling", SubResource("AnimationNodeStateMachineTransition_samh5"), "Falling", "Idle", SubResource("AnimationNodeStateMachineTransition_5jdpb"), "Falling", "Moving", SubResource("AnimationNodeStateMachineTransition_hwo6m"), "Falling", "Dash", SubResource("AnimationNodeStateMachineTransition_f8xsc"), "Falling", "BasicAttack", SubResource("AnimationNodeStateMachineTransition_1ghkr"), "BasicAttack", "Falling", SubResource("AnimationNodeStateMachineTransition_mxw26"), "AerialAttack", "BasicAttack", SubResource("AnimationNodeStateMachineTransition_m5l7m"), "AerialAttack", "UppercutAttack", SubResource("AnimationNodeStateMachineTransition_mnmg3"), "Jump", "BasicAttack", SubResource("AnimationNodeStateMachineTransition_xc0a6"), "Falling", "AerialAttack", SubResource("AnimationNodeStateMachineTransition_012bx")]
 graph_offset = Vector2(-356, -570)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_spefp"]
+
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 65
 script = ExtResource("1_bt2jc")
@@ -5653,7 +5655,6 @@ position = Vector2(0, 2)
 texture = ExtResource("2_r3am1")
 flip_h = true
 hframes = 5
-frame = 3
 
 [node name="PhysicsHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0.943878, 7.7079)
@@ -5794,6 +5795,9 @@ volume_db = -16.7
 stream = ExtResource("20_4o8i5")
 
 [node name="playerDetectbox2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerDetectbox2"]
+shape = SubResource("CapsuleShape2D_spefp")
 
 [connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

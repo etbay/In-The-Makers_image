@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxp0pga6yvbg3"]
+[gd_scene load_steps=4 format=3 uid="uid://dxp0pga6yvbg3"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_ccgob"]
 [ext_resource type="PackedScene" uid="uid://dm5fvhu5ahyk4" path="res://scenes/main_menu.tscn" id="2_muh80"]
+[ext_resource type="FontFile" uid="uid://bi0uafghueyks" path="res://assets/fonts/Pixelmax-Regular.otf" id="3_bxi65"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_ccgob")
@@ -13,5 +14,15 @@ offset_bottom = 648.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = 232.0
+offset_top = 32.0
+offset_right = 936.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0.447059, 0.478431, 0.576471, 1)
+theme_override_fonts/font = ExtResource("3_bxi65")
+theme_override_font_sizes/font_size = 64
+text = "In the Maker's Image"
 
 [editable path="Main Menu"]

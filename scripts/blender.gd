@@ -59,5 +59,7 @@ func _on_health_component_damaged():
 		velocity.x = player.last_facing_direction.x * knockback
 
 
+
+
 func _on_health_component_died() -> void:
 	self.queue_free()
