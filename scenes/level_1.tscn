@@ -390,7 +390,7 @@ tilemap = NodePath("../Midground")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" parent="Player" index="0"]
-frame = 3
+frame = 1
 
 [node name="AnimationTree" parent="Player" index="7"]
 parameters/AerialAttack/AerialAttack/TimeScale/scale = 1.0
