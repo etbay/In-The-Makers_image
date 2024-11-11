@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://dm5fvhu5ahyk4"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_nofe5"]
-[ext_resource type="Texture2D" uid="uid://dbmq8oh0mr732" path="res://assets/placeholder_main_menu.png" id="1_vib3g"]
 [ext_resource type="Theme" uid="uid://cdj6gdfdxtkfs" path="res://assets/theme.tres" id="2_c4q7f"]
+[ext_resource type="Texture2D" uid="uid://c6c65dx5524wo" path="res://assets/main_menu.png" id="2_oc20q"]
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -13,6 +13,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nofe5")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -20,8 +29,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_vib3g")
+texture = ExtResource("2_oc20q")
 expand_mode = 1
+stretch_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
