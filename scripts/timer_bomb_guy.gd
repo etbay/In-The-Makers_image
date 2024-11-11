@@ -21,7 +21,7 @@ extends CharacterBody2D
 var exploding = false
 var waiting = true
 
-var player : CharacterBody2D
+var player : Player
 
 func _ready():
 	explosionCollisionShape.disabled = true
