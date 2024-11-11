@@ -19,6 +19,7 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 Music2="*res://assets/music/music2.tscn"
 Music1="*res://scenes/music_1.tscn"
 MainMenuMusic="*res://scenes/main_menu_music.tscn"
+VictoryScreen="*res://scenes/victory_screen.tscn"
 
 [display]
 

@@ -8,4 +8,4 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		if current_scene == "Level 1":
 			get_tree().change_scene_to_file("res://scenes/level_2.tscn")
 		elif current_scene == "Level 2":
-			pass
+			get_tree().change_scene_to_file("res://scenes/victory_level.tscn")
