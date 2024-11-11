@@ -297,3 +297,15 @@ func _on_health_component_damaged() -> void:
 
 func _on_hurt_timer_timeout() -> void:
 	hurt_sound.pitch_scale = 1.0
+
+
+
+
+
+
+
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	print(area)
+	if area.name == "launchingArea":
+		velocity.y = -400
