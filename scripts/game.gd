@@ -14,14 +14,23 @@ func _ready():
 		Music1.play()
 		Music2.stop()
 		MainMenuMusic.stop()
+		VictoryScreen.stop()
 	elif name == "MainMenu":
 		Music1.stop()
 		Music2.stop()
 		MainMenuMusic.play()
+		VictoryScreen.stop()
 	elif name == "Level 2":
 		Music1.stop()
 		Music2.play()
 		MainMenuMusic.stop()
+		VictoryScreen.stop()
+	elif name == "VictoryLevel":
+		Music1.stop()
+		Music2.stop()
+		MainMenuMusic.stop()
+		VictoryScreen.play()
+		
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("exit"):
