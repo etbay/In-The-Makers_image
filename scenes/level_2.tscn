@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://csqr1n30g8eow"]
+[gd_scene load_steps=24 format=4 uid="uid://csqr1n30g8eow"]
 
 [ext_resource type="PackedScene" uid="uid://docergpbnrtt7" path="res://scenes/player.tscn" id="1_j7vwo"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_nja11"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://x3oj5neqd3n3" path="res://scenes/toaster.tscn" id="12_n28dk"]
 [ext_resource type="PackedScene" uid="uid://c63ujwnqgimxp" path="res://scenes/health_pickup.tscn" id="13_2va75"]
 [ext_resource type="PackedScene" uid="uid://beknuyb463m8o" path="res://scenes/killzone.tscn" id="14_w75jj"]
+[ext_resource type="PackedScene" uid="uid://8dkqj7hviiyy" path="res://scenes/next_level.tscn" id="15_5ajvv"]
 [ext_resource type="Texture2D" uid="uid://wd0fk5xnod4m" path="res://assets/work_desk_tile.png" id="15_hx577"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v4hg8"]
@@ -176,12 +177,10 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 texture = ExtResource("7_i87wo")
 
-[node name="Player" parent="." instance=ExtResource("1_j7vwo")]
-position = Vector2(433, 248)
+[node name="Player" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("1_j7vwo")]
+position = Vector2(2826, 132)
+tilemap = NodePath("../Midground")
 metadata/_edit_group_ = true
-
-[node name="Sprite2D" parent="Player" index="0"]
-frame = 4
 
 [node name="AnimationTree" parent="Player" index="7"]
 parameters/AerialAttack/AerialAttack/TimeScale/scale = 1.0
@@ -256,11 +255,15 @@ position = Vector2(2178, 279)
 [node name="Killzone" parent="." instance=ExtResource("14_w75jj")]
 position = Vector2(1703, 638)
 
-[node name="WorkDeskTile" type="Sprite2D" parent="."]
-position = Vector2(3156, 205)
+[node name="NextLevel" parent="." instance=ExtResource("15_5ajvv")]
+position = Vector2(3167, 206)
+script = null
+
+[node name="Sprite2D" parent="NextLevel" index="1"]
 texture = ExtResource("15_hx577")
 
 [editable path="CanvasLayer/Control"]
 [editable path="Player"]
 [editable path="Player/Hurtbox"]
 [editable path="Player/Hitbox"]
+[editable path="NextLevel"]
