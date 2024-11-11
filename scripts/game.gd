@@ -11,13 +11,16 @@ func _ready():
 		print("HealthComponent or HealthBar is not connected to root level node")
 	AudioServer.set_bus_mute(1, false)
 	if name == "Level 1":
+		Music1.play()
 		Music2.stop()
 		MainMenuMusic.stop()
 	elif name == "MainMenu":
 		Music1.stop()
 		Music2.stop()
+		MainMenuMusic.play()
 	elif name == "Level 2":
 		Music1.stop()
+		Music2.play()
 		MainMenuMusic.stop()
 
 func _process(delta: float) -> void:
