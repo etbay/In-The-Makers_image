@@ -1,22 +1,79 @@
-[gd_scene load_steps=4 format=3 uid="uid://c63ujwnqgimxp"]
+[gd_scene load_steps=7 format=3 uid="uid://c63ujwnqgimxp"]
 
 [ext_resource type="Script" path="res://scripts/health_pickup.gd" id="1_mi85t"]
-[ext_resource type="Texture2D" uid="uid://d217462mhf0n3" path="res://assets/fruit.png" id="1_ulays"]
+[ext_resource type="Texture2D" uid="uid://dbtvqt2q1ejb" path="res://assets/health_battery_pickup.png" id="2_behq0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3r1gx"]
 radius = 7.0
+
+[sub_resource type="Animation" id="Animation_f0bpo"]
+resource_name = "Animate"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_behq0")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_x4muj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sw2i3"]
+_data = {
+"Animate": SubResource("Animation_f0bpo"),
+"RESET": SubResource("Animation_x4muj")
+}
 
 [node name="HealthPickup" type="Area2D"]
 collision_mask = 8
 script = ExtResource("1_mi85t")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ulays")
+texture = ExtResource("2_behq0")
 hframes = 4
-vframes = 4
-frame = 12
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 0)
 shape = SubResource("CircleShape2D_3r1gx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sw2i3")
+}
+autoplay = "Animate"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

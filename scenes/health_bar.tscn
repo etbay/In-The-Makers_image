@@ -59,6 +59,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(526, 262)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../ColorRect:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_ewa6j"]
 resource_name = "Start"
@@ -75,6 +87,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ColorRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ohhth"]
@@ -174,9 +198,9 @@ show_percentage = false
 layout_mode = 0
 offset_left = -104.0
 offset_top = -40.0
-offset_right = 422.0
+offset_right = 346.0
 offset_bottom = 222.0
-color = Color(0, 0, 0, 1)
+color = Color(0, 0, 0, 0)
 metadata/_edit_group_ = true
 
 [node name="MarginContainer2" type="MarginContainer" parent="ColorRect"]
@@ -188,7 +212,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="ColorRect/MarginContainer2"]
-visible = false
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.392157, 0.156863, 0.141176, 1)

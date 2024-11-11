@@ -21,6 +21,8 @@ class_name Player
 @onready var jump_sound: AudioStreamPlayer2D = $Audio/JumpSound
 @onready var dash_sound: AudioStreamPlayer2D = $Audio/DashSound
 @onready var death_sound: AudioStreamPlayer2D = $Audio/DeathSound
+@onready var hurt_sound: AudioStreamPlayer2D = $Audio/HurtSound
+@onready var hurt_timer: Timer = $HurtTimer
 
 const BASE_SPEED := 150.0
 const RUN_SPEED := 250.0
@@ -284,3 +286,14 @@ func _on_pitch_timer_timeout() -> void:
 
 func _on_death_timer_timeout() -> void:
 	get_tree().reload_current_scene()
+
+
+func _on_health_component_damaged() -> void:
+	if not hurt_sound.playing:
+		var rand_float = randf_range(-0.5,-0.2)
+		hurt_timer.start()
+		hurt_sound.pitch_scale += rand_float
+		hurt_sound.play()
+
+func _on_hurt_timer_timeout() -> void:
+	hurt_sound.pitch_scale = 1.0

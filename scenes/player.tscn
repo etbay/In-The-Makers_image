@@ -1,4 +1,4 @@
-[gd_scene load_steps=173 format=3 uid="uid://docergpbnrtt7"]
+[gd_scene load_steps=174 format=3 uid="uid://docergpbnrtt7"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_bt2jc"]
 [ext_resource type="Texture2D" uid="uid://dpvt3oebvvl27" path="res://assets/player/death.png" id="2_1tqtk"]
@@ -14,13 +14,14 @@
 [ext_resource type="Script" path="res://scripts/player_animation.gd" id="6_h4370"]
 [ext_resource type="Texture2D" uid="uid://ck2chdcai4kfe" path="res://assets/player/idle.png" id="9_p8h3w"]
 [ext_resource type="AudioStream" uid="uid://qyv0ubryfvd2" path="res://assets/sfx/Jump.mp3" id="14_ebw56"]
+[ext_resource type="AudioStream" uid="uid://w63o2ode8cgk" path="res://assets/sfx/hurt_1.wav" id="14_nrhnt"]
 [ext_resource type="AudioStream" uid="uid://cot4w7vuqtw1x" path="res://assets/sfx/attack.mp3" id="14_r52xs"]
 [ext_resource type="AudioStream" uid="uid://b60bsrt2jqx03" path="res://assets/sfx/aerial_attack.mp3" id="14_x0yyd"]
 [ext_resource type="AudioStream" uid="uid://8q73jph6ybe2" path="res://assets/sfx/footsteps.mp3" id="14_yy77j"]
 [ext_resource type="AudioStream" uid="uid://cie7ifyedpyg1" path="res://assets/sfx/death_screen.mp3" id="16_4qvgw"]
 [ext_resource type="AudioStream" uid="uid://mdric5qvbyda" path="res://assets/sfx/Land.mp3" id="18_nxkyo"]
 [ext_resource type="AudioStream" uid="uid://cnos3w350vb77" path="res://assets/sfx/uppercut.mp3" id="18_x5xla"]
-[ext_resource type="AudioStream" uid="uid://cqb61u8rhjlh5" path="res://assets/sfx/Dash.mp3" id="20_4o8i5"]
+[ext_resource type="AudioStream" uid="uid://cqb61u8rhjlh5" path="res://assets/sfx/dash.mp3" id="20_4o8i5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3idhp"]
 size = Vector2(10, 19)
@@ -5645,7 +5646,8 @@ script = ExtResource("1_bt2jc")
 position = Vector2(0, 2)
 texture = ExtResource("2_r3am1")
 flip_h = true
-hframes = 6
+hframes = 5
+frame = 1
 
 [node name="PhysicsHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0.943878, 7.7079)
@@ -5660,13 +5662,13 @@ collision_mask = 16
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(3.62787, -4.85692)
-scale = Vector2(2, 1)
+position = Vector2(-0.0313795, -10.7016)
+scale = Vector2(1, 0.3)
 shape = SubResource("CapsuleShape2D_5p1mr")
 
 [node name="Legs" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(3.45501, 7.10377)
-scale = Vector2(2.5, 0.7)
+position = Vector2(-0.384452, 4.58309)
+scale = Vector2(2, 1.4)
 shape = SubResource("CapsuleShape2D_dice2")
 
 [node name="Hitbox" parent="." instance=ExtResource("4_b3pke")]
@@ -5674,7 +5676,8 @@ collision_layer = 4
 collision_mask = 32
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
-position = Vector2(12.408, 3.33636)
+position = Vector2(8.53344, 7.41043)
+scale = Vector2(1e-05, 1e-05)
 shape = SubResource("CapsuleShape2D_ua2tl")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -5734,6 +5737,9 @@ one_shot = true
 wait_time = 0.1
 one_shot = true
 
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.2
+
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(0, -20)
 zoom = Vector2(2, 2)
@@ -5741,6 +5747,10 @@ limit_bottom = 200
 position_smoothing_enabled = true
 
 [node name="Audio" type="Node2D" parent="."]
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("14_nrhnt")
+volume_db = -4.795
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="Audio"]
 stream = ExtResource("14_ebw56")
@@ -5768,12 +5778,14 @@ volume_db = -16.7
 [node name="DashSound" type="AudioStreamPlayer2D" parent="Audio"]
 stream = ExtResource("20_4o8i5")
 
+[connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
 [connection signal="timeout" from="DashTimeout" to="." method="_on_dash_timeout_timeout"]
 [connection signal="timeout" from="AirWait" to="." method="_on_air_wait_timeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="PitchTimer" to="." method="_on_pitch_timer_timeout"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]
 
 [editable path="Hurtbox"]
 [editable path="Hitbox"]
