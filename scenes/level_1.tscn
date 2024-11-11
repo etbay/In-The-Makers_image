@@ -328,12 +328,12 @@ tile_map_data = PackedByteArray("AAD3/wAABQAAAAcAAADU/wkABQAAAAcAAAC+/wcABQAAAAc
 tile_set = SubResource("TileSet_5pe85")
 
 [node name="Player" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("1_fk7hs")]
-position = Vector2(448, 256)
+position = Vector2(270, 183)
 tilemap = NodePath("../Midground")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" parent="Player" index="0"]
-frame = 0
+frame = 4
 
 [node name="AnimationTree" parent="Player" index="7"]
 parameters/AerialAttack/AerialAttack/TimeScale/scale = 1.0
