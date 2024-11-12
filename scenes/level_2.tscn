@@ -178,9 +178,12 @@ size_flags_vertical = 8
 texture = ExtResource("7_i87wo")
 
 [node name="Player" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("1_j7vwo")]
-position = Vector2(2826, 132)
+position = Vector2(440, 256)
 tilemap = NodePath("../Midground")
 metadata/_edit_group_ = true
+
+[node name="Sprite2D" parent="Player" index="0"]
+frame = 2
 
 [node name="AnimationTree" parent="Player" index="7"]
 parameters/AerialAttack/AerialAttack/TimeScale/scale = 1.0
@@ -255,15 +258,14 @@ position = Vector2(2178, 279)
 [node name="Killzone" parent="." instance=ExtResource("14_w75jj")]
 position = Vector2(1703, 638)
 
-[node name="NextLevel" parent="." instance=ExtResource("15_5ajvv")]
+[node name="NextLevel2" parent="." instance=ExtResource("15_5ajvv")]
 position = Vector2(3167, 206)
-script = null
 
-[node name="Sprite2D" parent="NextLevel" index="1"]
+[node name="Sprite2D" parent="NextLevel2" index="1"]
 texture = ExtResource("15_hx577")
 
 [editable path="CanvasLayer/Control"]
 [editable path="Player"]
 [editable path="Player/Hurtbox"]
 [editable path="Player/Hitbox"]
-[editable path="NextLevel"]
+[editable path="NextLevel2"]

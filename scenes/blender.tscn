@@ -220,6 +220,7 @@ size = Vector2(14, 43)
 
 [node name="blender" type="CharacterBody2D"]
 script = ExtResource("1_c1qjh")
+knockback = 400
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -32)
@@ -268,6 +269,7 @@ wait_time = 0.8
 one_shot = true
 
 [connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 
 [editable path="Hitbox"]
 [editable path="Hurtbox"]
