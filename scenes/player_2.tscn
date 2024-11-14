@@ -3,3 +3,5 @@
 [node name="Player2" type="Node2D"]
 
 [node name="StateMachine" type="Node2D" parent="."]
+
+[node name="IdleState" type="Node2D" parent="StateMachine"]
