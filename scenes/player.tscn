@@ -21,7 +21,7 @@
 [ext_resource type="AudioStream" uid="uid://cie7ifyedpyg1" path="res://assets/sfx/death_screen.mp3" id="16_4qvgw"]
 [ext_resource type="AudioStream" uid="uid://mdric5qvbyda" path="res://assets/sfx/Land.mp3" id="18_nxkyo"]
 [ext_resource type="AudioStream" uid="uid://cnos3w350vb77" path="res://assets/sfx/uppercut.mp3" id="18_x5xla"]
-[ext_resource type="AudioStream" uid="uid://cqb61u8rhjlh5" path="res://assets/sfx/dash.mp3" id="20_4o8i5"]
+[ext_resource type="AudioStream" uid="uid://cqb61u8rhjlh5" path="res://assets/sfx/Dash.mp3" id="20_4o8i5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3idhp"]
 size = Vector2(10, 19)
@@ -5655,6 +5655,7 @@ position = Vector2(0, 2)
 texture = ExtResource("2_r3am1")
 flip_h = true
 hframes = 5
+frame = 3
 
 [node name="PhysicsHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0.943878, 7.7079)

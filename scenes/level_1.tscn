@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://c4o2c3alm8aee"]
+[gd_scene load_steps=27 format=4 uid="uid://c4o2c3alm8aee"]
 
 [ext_resource type="PackedScene" uid="uid://docergpbnrtt7" path="res://scenes/player.tscn" id="1_fk7hs"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_jntnx"]
@@ -17,7 +17,6 @@
 [ext_resource type="FontFile" uid="uid://bi0uafghueyks" path="res://assets/fonts/Pixelmax-Regular.otf" id="16_ghu2u"]
 [ext_resource type="PackedScene" uid="uid://beknuyb463m8o" path="res://scenes/killzone.tscn" id="17_4rc2q"]
 [ext_resource type="PackedScene" uid="uid://8dkqj7hviiyy" path="res://scenes/next_level.tscn" id="17_5boma"]
-[ext_resource type="Texture2D" uid="uid://bprio2busyk7i" path="res://assets/arrowBrown_right.png" id="18_i1yog"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v4hg8"]
 texture = ExtResource("6_xi5wm")
@@ -386,12 +385,9 @@ position = Vector2(824.5, -58.741)
 metadata/_edit_group_ = true
 
 [node name="Player" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("1_fk7hs")]
-position = Vector2(448, 256)
+position = Vector2(417.012, 255.963)
 tilemap = NodePath("../Midground")
 metadata/_edit_group_ = true
-
-[node name="Sprite2D" parent="Player" index="0"]
-frame = 1
 
 [node name="AnimationTree" parent="Player" index="7"]
 parameters/AerialAttack/AerialAttack/TimeScale/scale = 1.0
@@ -429,10 +425,6 @@ position = Vector2(5160, 280)
 
 [node name="blender" parent="." instance=ExtResource("13_msnjj")]
 position = Vector2(4648, 408)
-knockback = 400
-
-[node name="HealthComponent" parent="blender" index="6"]
-MAX_HEALTH = 4
 
 [node name="Toaster10" parent="." instance=ExtResource("14_a2dah")]
 position = Vector2(4864, 416)
@@ -473,11 +465,6 @@ position = Vector2(576, 688)
 [node name="NextLevel" parent="." instance=ExtResource("17_5boma")]
 position = Vector2(6824, 288)
 
-[node name="Sprite2D" parent="NextLevel" index="1"]
-texture = ExtResource("18_i1yog")
-
-[connection signal="died" from="blender/HealthComponent" to="blender" method="_on_health_component_died"]
-
 [editable path="CanvasLayer/Control"]
 [editable path="Player"]
 [editable path="Player/Hurtbox"]
@@ -485,4 +472,3 @@ texture = ExtResource("18_i1yog")
 [editable path="blender"]
 [editable path="blender/Hitbox"]
 [editable path="blender/Hurtbox"]
-[editable path="NextLevel"]
